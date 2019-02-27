@@ -1,3 +1,4 @@
+<pre>
 # GTOS
 
 GTOS is an virtual operating system that can run on Intel 8080 Emulator.
@@ -48,4 +49,4 @@ There are three type of modes that a program can be executed on GTOS:
     * Executes a program with the debug mode of type 1. Writes every command, condition flags, register contents at once.
   - ./gtos8080 file_name.com 2
     * Executes a program with the debug mode of type 2. Writes a command, condition flags, register contents step by step.
-      
+ </pre>     
