@@ -37,6 +37,7 @@ Since it is hard to find such an architecture nowadays, a software is required s
   - Move .com file to the directory that has the .exe file from the compilation process.
   - Execute the command below with either of the debug modes: 0, 1, 2\
       ./gtos8080 file_name.com
+      
 NOTE: Since there are a lot processes to convert assembly files to executable virtualized machine instructions so as to test with different parameters, I/O type has been updated from terminal to regular files. For example to test if a given string is palindrome or not, put simply the parameter into the called "input.txt". See the result in the file called "output.txt", the steps mentioned above are still valid though.
 
 
