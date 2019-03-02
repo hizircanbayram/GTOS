@@ -1,12 +1,16 @@
 #ifndef H_GTUOS
 #define H_GTUOS
 
-#include "/home/cse312/GTOS/Intel_8080_Emulator/8080emuCPP.h"
+#include "8080emuCPP.h"
+#include <fstream>
+#include <ostream>
 
-
+using namespace std;
 
 class GTUOS{
 	public:
+		GTUOS();
+		~GTUOS();
 		uint64_t handleCall(const CPU8080 & cpu);
 		uint64_t call_print_b(const CPU8080 & cpu);
 		uint64_t call_print_mem(const CPU8080 & cpu);
@@ -16,6 +20,8 @@ class GTUOS{
 		uint64_t call_read_str(const CPU8080 & cpu);
 		void writeMemoryIntoFile(const CPU8080 &cpu);
 	private:
+		ofstream oFile;
+		ifstream inFile;
 		class syscall {
 				public:
 					syscall(int n, int c) {

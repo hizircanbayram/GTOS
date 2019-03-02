@@ -1,7 +1,7 @@
 #include <iostream>
 #include "gtuos.h"
-#include "/home/cse312/GTOS/Intel_8080_Emulator/8080emuCPP.h"
-#include "/home/cse312/GTOS/Intel_8080_Emulator/memory.h"
+#include "8080emuCPP.h"
+#include "memory.h"
 
 using namespace::std;
 
@@ -31,7 +31,6 @@ int main (int argc, char**argv)
 			getchar();
 	}	while (!theCPU.isHalted())
 ;
-
 
 	return 0;
 }

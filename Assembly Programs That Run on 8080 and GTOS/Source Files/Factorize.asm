@@ -5,7 +5,7 @@ READ_MEM	equ 2
 PRINT_STR	equ 1
 READ_STR	equ 8
 
-NUM		equ 20
+
 	; Position for stack pointer
 stack   equ 0F000h
 
@@ -29,8 +29,10 @@ GTU_OS:	PUSH D
 
 begin:
 	LXI SP,stack 
-	mvi c, NUM	
-	mvi a, NUM
+	mvi a, READ_B
+	call GTU_OS
+	mov c, b
+	mov a, b
 main_loop:
 	mov b, a ; increment var is assigned to b
 	mov a, c ; num is assigned to a so that it can be manipulated(20)

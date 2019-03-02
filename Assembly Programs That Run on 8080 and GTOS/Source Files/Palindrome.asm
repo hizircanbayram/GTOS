@@ -29,7 +29,8 @@ GTU_OS:	PUSH D
 
 	; This program prints a null terminated string to the screen
 
-string:	dw 'aabbccbbaa',00H 	; null terminated string
+string:	ds 0FFH 	; null terminated string
+;string dw 'aabbcfcbbaaaa',00H
 pal:	dw 'palindrom',00H 	; prompt for detecting that it's a palindrom
 notpal: dw 'not palindrom',00H ; prompt for detecting that it's not a palindrom
 
@@ -39,7 +40,7 @@ notpal: dw 'not palindrom',00H ; prompt for detecting that it's not a palindrom
 
 ; finds where the given string whose address kept in register A and B ends. Address of the last element of the string is kept in the registers H and L.
 end_string_begin:
-	LXI H, string			; reg H and L keep the address
+	LXI B, string			; reg H and L keep the address
 	mvi a, 0				; length is in the accumulator
 end_string_loop:
 	mov b, M 				; char is here | M is a symbolic reference to the H and L registers
@@ -54,6 +55,7 @@ end_string_loop:
 exit_end_string: 				
 	dcx H	
 	pop a					; length is in the accumulator
+	sui 1
 	mov e, a
 	jmp back_main_string
 
@@ -66,15 +68,18 @@ palindrome_begin:
 	mov a, e 					; right variable is in accumulator. left variable is in register D
 	cmp d						; compare right and left
 	jz write_palindrom 			; right and left are the same(indexes). it's a palindrome
+	jc write_palindrom			; lef > rig : d > a : a < d
 	push D						; right and left variables are pushed to stack
 	mov a, M					; last character is in the accumulator
-	push M						; push the address of the last char so that its address doesn't lose
+	push H						; push the address of the last char so that its address doesn't lose
 	mov h, b
 	mov l, c
 	mov d, M					; first character is in the register D
 	cmp d						; compare the last and first character
 	jnz write_not_palindrom		; if not equal, not a palindrome 
-	pop M						; take the address of the last char back so that it can be decremented by one
+	pop H						; take the address of the last char back so that it can be decremented by one
+	dcr l						; decrements l by one so that the address of the last character is decremented by one too
+	inr c						; increment c by one so that the address of the first character is increased by one too
 	pop D						; take the right and left variables back
 	dcr e						; decrease the right var
 	inr d						; increase the left var
@@ -87,8 +92,11 @@ palindrome_begin:
 ; main sub routine.
 begin:
 	LXI SP,stack 
-	mvi d, 0				; left is assigned to register D
 	LXI B, string 			; address of the first character is kept in the registers B and C	
+	mvi a, READ_STR
+	call GTU_OS
+	LXI H, string
+	mvi d, 0				; left is assigned to register D
 	jmp end_string_begin 	; address of the last character is kept in the registers H and L. right is assigned to register E. length of the string is in the register E
 	back_main_string:		
 	jmp palindrome_begin
@@ -102,6 +110,9 @@ write_not_palindrom:
 	lxi b, notpal
 	call GTU_OS
 	hlt
+
+
+
 
 
 
