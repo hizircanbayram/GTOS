@@ -91,7 +91,7 @@ uint64_t GTUOS::call_read_b(const CPU8080 & cpu) {
 
 // Calls READ_MEM system call. Reads an integer from the keyboard and puts it at the memory location pointed by register B and register C.
 uint64_t GTUOS::call_read_mem(const CPU8080 & cpu) {
-	uint8_t content;
+	int content;
 	cout << "Enter the number that is written to the memory address pointed by register B and register C : ";
 	inFile >> content;
 	if ((content < 0) || (content > 255)) {
@@ -100,6 +100,7 @@ uint64_t GTUOS::call_read_mem(const CPU8080 & cpu) {
 	}
 	uint16_t address = (((uint16_t)cpu.state->b) << 8) | cpu.state->c;
 	cpu.memory->at(address) = content;
+    printf("%d is set in %x\n", cpu.memory->(address), address);
 	return this->READ_MEM.cycle;
 }
 
