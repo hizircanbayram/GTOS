@@ -33,43 +33,26 @@ GTU_OS:	PUSH D
 
 begin:
 	LXI SP,stack 
+    LXI B, 0xC350    ; cur mem value
+    MVI A, 0
+    ;STAX B   ;KOD DRIVER ASAMASINDA BURA KAPALI KALACAK, SONRA ACILACAK; initialize cur mem with 0 by assigning to the address 0xC350 
     jmp proc_start 
 
 
-; SU AN TERMINATE ETMIYOR GIBI BU DONGU, UNUTMA!!!
 ; HER PROCESSIN STATE VE PID'LERINI ATAMAYI UNUTMA!!!
 proc_start:
-    MVI C, 0    ; counter variable of this subroutine.
-    MVI B, 0    ; counter variable of mult subroutine.
-proc_loop:
-    MVI A, NUM  ; # of processes
-    CMP C
-    JZ proc_exit    ; if counter variable is equal to NUM, then jump
-    PUSH B      ; push those two counter variables so that they can't be lose
-    JMP mult_start
-    mult_return:    
-    MOV B, H    ; B & C have state of any process
-    MOV C, L
-    LDAX B      
-    MVI B, READY    ; B is free to compare, since the address is already taken
-    CMP B
-    JZ proc_loop_end    ; if state(register A) != RUN, then jump 
-    ; if state == RUN
-    MVI A, READY    ; set state to READY
-    MOV B, H    ; address of state of any process is here
-    MOV C, L
-    STAX B      ; store it to the address
+    LXI B, 0xC350    ; take the address of cur mem
+    LDAX B          ; now register A has the cur mem
+    MOV C, A    ; cur mem is in C so that it can be upper bound for subroutine mult
+    MVI B, 0	; register B is assigned with 0 so that the counter variable of mult subroutine can be started from 0.
+    JMP mult_start  ; loop, starting from 0 to cur mem
+    mult_return:    ; H & L have the address of which process table entry is updated
     INR L
     INR L       ; H & L points now where the registers will be stored
-    LXI D, 0100H    ; D & E points now where the registers are stored
+    LXI D, 0x0100    ; D & E points now where the registers are stored
     JMP to_process_start
     process_return:
-proc_loop_end:
-    POP B           
-    INR C       
-    JMP proc_loop
-proc_exit:
-    HLT
+    HLT     ;   BURA DEGISECEK!!!!!!!!!!!!
 
 
 
@@ -91,6 +74,25 @@ to_process:
     INR B
     JMP to_process
 to_process_end:
+    LXI B, 0xC350   ; take the address of cur mem
+    LDAX B          ; now register A has the cur mem
+    PUSH B          ; push address of 0xC350 so that it can be used for the instruction STAX below
+    MVI C, NUM
+    DCR C           ; C now has (# of processes) - 1  
+    PUSH psw        ; register A has the cur mem. Since it'll be used for zero bit below, it needs to be stored somehow.(1)
+    SUB C           ; A - C so that the zero bit can be set
+    JZ cur_mem_to_zero  ; if cur mem == (# of proc - 1) then jump
+    POP psw         ; Now we're done with the zero bit, we can take cur mem back so that we can update and store it again in 0xC350 
+    INR A   ; if cur mem != (# of proc - 1), increment it by 1
+    POP B   ; B & C now have the address of 0xC350
+    STAX B  ; update cur mem with the new value(B & C have the address from above)
+    JMP cur_mem_to_one
+cur_mem_to_zero:
+    POP psw
+    MVI A, 0
+    POP B       ; B & C now have the address of 0xC350
+    STAX B      ; update cur mem with 0(B & C have the address from above)
+cur_mem_to_one:
     JMP process_return
 
 
@@ -101,7 +103,6 @@ to_process_end:
 ; D & E register pair keeps factor
 ; Result is in H & L register pair
 mult_start:
-;    MOV B, C    ; proc loop's counter variable is assigned to B so that this loop can be repeated as it is supposed to be.
     MOV A, C
     MVI D, 02H  ; MSB 8 bits of factor
     MVI E, 00H  ; LSB 8 bits of factor
