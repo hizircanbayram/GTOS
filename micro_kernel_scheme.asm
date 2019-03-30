@@ -7,8 +7,8 @@ PRINT_STR	equ 1
 READ_STR	equ 8
 
 NUM		equ 3
-RUN     equ 0
-READY   equ 1
+RUN     equ 1
+DONE    equ 0
 
 	; Position for stack pointer
 stack   equ 0F000h
@@ -31,6 +31,8 @@ GTU_OS:	PUSH D
 	; ---------------------------------------------------------------
 	; YOU SHOULD NOT CHANGE ANYTHING ABOVE THIS LINE   
 
+
+
 begin:
 	LXI SP,stack 
     LXI B, 0xC350    ; cur mem value
@@ -52,7 +54,49 @@ proc_start:
     LXI D, 0x0100    ; D & E points now where the registers are stored
     JMP to_process_start
     process_return:
-    HLT     ;   BURA DEGISECEK!!!!!!!!!!!!
+    ; end of adjuster
+    MVI B, 0
+    ; 0x2710'dan degil, kaldigi yerden devam etmeli donguye...
+    JMP state_exit_control
+    sec_return:
+    ; DRIVER
+    MVI A, READ_MEM
+    call GTU_OS
+    HLT
+    ; DRIVER
+    ; there is stil at least one process that is not over yet
+
+
+
+; B register : counter variable, needs to be loaded before calling this subroutine.
+; H & L register pair keeps the starting address of process table
+; D & E register pair keeps factor
+; Decides if there is any process that is not over yet or not. If it is, simply return to sec_return. Halts the kernel otherwise.
+state_exit_control:
+    MVI D, 02H  ; MSB 8 bits of factor
+    MVI E, 00H  ; LSB 8 bits of factor
+    MVI H, 27H  ; MSB 8 bits of starting address
+    MVI L, 10H  ; LSB 8 bits of starting address
+sec_loop:
+    MVI A, NUM
+    CMP B
+    JZ terminate_os ; if A == B(counter == (# of proc)), 
+    PUSH B  ; push counter variable so that it can't lose its value while using register B & C for LDAX instruction
+    MOV B, H
+    MOV C, L    ; now register B & C have the address of state of any process
+    LDAX B      ; Register A have the state of any process
+    MVI B, DONE ; so as to compare if the state is DONE or not
+    CMP B
+    JNZ sec_exit ; if A != 0(DONE), then jump to sec_exit, at least one process is stil not over
+    DAD D   ; adds 16-bit value specified register pair to contents of H and L register pair
+    POP B   ; pop B & C so that the counter variable can be taken back.
+    INR B
+    JMP sec_loop
+sec_exit:
+    ; MVI B, 0 ; OLMASI GEREKIYOR MU EMIN DEGILIM!!!!
+    JMP sec_return
+terminate_os:
+    HLT
 
 
 

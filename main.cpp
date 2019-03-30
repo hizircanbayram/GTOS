@@ -28,7 +28,7 @@ int main (int argc, char**argv)
     theCPU.memory->physicalAt(0x2710) = 0; 
     theCPU.memory->physicalAt(0x2910) = 0; 
     theCPU.memory->physicalAt(0x2b10) = 0; 
-	theCPU.memory->physicalAt(0xc350) = 3;
+	theCPU.memory->physicalAt(0xc350) = 2;
 	printf("0xc350 content : %d\n", theCPU.memory->physicalAt(0xc350));
 	theCPU.ReadFileIntoMemoryAt(argv[1], 0x0000);	
  	
