@@ -59,12 +59,54 @@ proc_start:
     ; 0x2710'dan degil, kaldigi yerden devam etmeli donguye...
     JMP state_exit_control
     sec_return:
-    ; DRIVER
-    MVI A, READ_MEM
-    call GTU_OS
-    HLT
-    ; DRIVER
+    HLT         ; BU SONRADAN SILINECEK!!!!
     ; there is stil at least one process that is not over yet
+    MVI B, 0    
+    JMP scheduler
+
+
+
+; B register : counter variable, needs to be loaded before calling this subroutine.
+scheduler:
+    LXI H, 0xC350   ; H & L have the address of cur mem
+    MOV A, M        ; A has the cur mem
+    MVI D, 02H  ; MSB 8 bits of factor
+    MVI E, 00H  ; LSB 8 bits of factor
+    MVI H, 27H  ; MSB 8 bits of starting address
+    MVI L, 10H  ; LSB 8 bits of starting address
+reach_the_address_loop:
+    CMP B 
+    JZ rta_exit ; if counter variable is looped enough, get out of the loop
+    DAD D   ; adds 16-bit value specified register pair to contents of H and L register pair.
+    INR B
+    JMP reach_the_address_loop 
+rta_exit:   ; we are in the next process's entry now(address is in H & L)
+skip_the_done: ; we need to skip terminated processes
+    PUSH psw    ; cur mem is pushed so that it can't lose its value
+    MOV B, H
+    MOV C, L    ; address of state is now in B & C
+    LDAX B      ; state of any process is now in A
+    MVI B, RUN
+    CMP B
+    JZ std_exit ; if state is RUN, end the loop so that registers can be updated by the entry of the process table
+    POP psw     ; cur mem is in A again
+    MVI B, NUM  ; (# of proc) is in B for comparing cur mem with it so that it can be decided how cur mem is updated: either 0 or += 1
+    DCR B       ; (# of proc - 1) is in B now
+    CMP B 
+    JNZ with_zero_not   ; if cur mem is not equal to (# of proc - 1), then jump
+    MVI A, 0
+    LXI H, 0x2710
+    JMP skip_the_done
+with_zero_not:
+    INR A
+    DAD D
+    JMP skip_the_done
+std_exit: 
+    POP psw ; cur mem is in A again
+    LXI B, 0xC350   ; address of where cur mem is stored is in B & C
+    STAX B  ; cur mem is updated
+    ; registers are needed to be set now
+
 
 
 
