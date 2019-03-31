@@ -40,11 +40,13 @@ begin:
     ;STAX B   ;KOD DRIVER ASAMASINDA BURA KAPALI KALACAK, SONRA ACILACAK; initialize cur mem with 0 by assigning to the address 0xC350 
     ;jmp proc_start 
     MVI B, 0
+    DI		; DRIVER
     jmp scheduler
 
 
 ; HER PROCESSIN STATE VE PID'LERINI ATAMAYI UNUTMA!!!
 ; INTERRUPT DI VE EI ETMEYI UNUTMA!!!!
+; LOAD EXEC system call no ekle!!!
 proc_start:
     LXI B, 0xC350    ; take the address of cur mem
     LDAX B          ; now register A has the cur mem
@@ -62,7 +64,6 @@ proc_start:
     ; 0x2710'dan degil, kaldigi yerden devam etmeli donguye...
     JMP state_exit_control
     sec_return:
-    HLT         ; BU SONRADAN SILINECEK!!!!
     ; there is stil at least one process that is not over yet
     MVI B, 0    
     JMP scheduler
@@ -109,22 +110,7 @@ std_exit:
     LXI B, 0xC350   ; address of where cur mem is stored is in B & C
     STAX B  ; cur mem is updated
     ; registers are needed to be set now. address of which entry of process table is taken is in H & L registers.
-    ;PUSH H  ; push H & L registers so that the starting address of entry can't be lost
-    MVI A, 7
-    CALL go_forward_start
-    LDAX D      ; 7th element is in A
-    PUSH psw    ; push it to the stack so that it can't lose its value while assigning it with 0 for another loop below
-    ; STACK POINTER REGISTERS
-    MVI A, 8    
-    CALL go_forward_start 
-    LDAX D  ; 8th element is in A
-    PUSH H  ; push starting address of entry so that it can't lose its value below
-    MOV H, A    ; 8th element is in H
-    POP psw     ; pop 7th element off the stack
-    MOV L, A    ; 7th element is in H
-    ; SPHL ; SON KERTEDE ACILACAK !!!!! H & L registerlarindaki degerler sp registerlarina bu komut ile gidecek. onun icin POP H yapinca H & L registerlarindaki degerler kayboldu diye dusunme
     ; D & E REGISTERS
-    POP H   ; starting address of entry is now in H & L again
     MVI A, 3
     CALL go_forward_start   
     LDAX D      ; 3rd element is in A
@@ -139,17 +125,16 @@ std_exit:
     ; H & L REGISTERS
     MVI A, 5
     CALL go_forward_start  
-    LDAX D      ; 5th element is in A
-    MOV D, H    ; move MSB 8 bits of starting address of entry so that starting address can't be lost
-    MOV H, A    ; 5th element is now in H
+    LDAX D          ; 5th element is in A
+    MOV C, A        ; 5th element is in C
     MVI A, 6
     CALL go_forward_start
     LDAX D      ; 6th element is in A
-    MOV E, L    ; move LSB 8 bits of starting address of entry so that starting address can't be lost
-    MOV L, A    ; 6th element is now in L
-    PUSH H      ; push H and L so that they can't lose their value   ; PCHL POP EDECEK!!!  BUNDAN SONRAKILERI BENIM POP ETMEM GEREKIYOR
-    MOV H, D    
-    MOV L, E    ; Take the starting address of entry back to H & L
+    MOV B, A    ; 6th element is in B
+    MOV A, B
+    MOV B, C
+    MOV C, A    ; swap operation. There was a mistake of values in the register B & C. They've been swapped.
+    PUSH B      ; push B and C so that they can't lose their value(value of H & L)   ; PCHL POP EDECEK!!!  BUNDAN SONRAKILERI BENIM POP ETMEM GEREKIYOR
     ; BASE REGISTERS
     MVI A, 0xB
     CALL go_forward_start
@@ -176,6 +161,17 @@ std_exit:
     MOV D, A    ; program counter high is now in register D
     POP H       ; pop the starting address of entry off the stack
     PUSH D      ; !!!D & E have the program counter registers. They needed to be popped off to H & L!!
+    ; STACK POINTER REGISTERS
+    MVI A, 7
+    CALL go_forward_start
+    LDAX D      ; 7th element is in A
+    MOV C, A    ; sp low is in C
+    ; PUSH psw    ; push it to the stack so that it can't lose its value while assigning it with 0 for another loop below
+    MVI A, 8    
+    CALL go_forward_start 
+    LDAX D      ; sp high is in A
+    MOV B, A    ; sp high is in B
+    PUSH B      ; push stack pointers to the stack
     ; B & C REGISTERS
     MVI A, 2
     CALL go_forward_start 
@@ -190,6 +186,7 @@ std_exit:
     PUSH B      ; push value of registers B & C to the stack. IT NEEDS TO BE POPPED OFF!!!!
     ; cc REGISTER
     MVI A, 0xD
+    CALL go_forward_start
     LDAX D      ; value of cc is now in register A
     PUSH psw
     POP psw
@@ -198,10 +195,13 @@ std_exit:
     MOV E, L
     LDAX D      ; value of register A is now in register A
     POP B       ; value of registers B & C are now in registers B & C again.
+    POP H       ; stack pointers are popped off
+    ;SPHL
     POP H       ; program counter registers are now in H & L, as it supposed to be
     POP D       ; base registers are now in D & E, as it supposed to be
     ; EI
     ; PCHL      ; D & E and H & L are in their own place
+    HLT     ; DRIVER
 
 
 
