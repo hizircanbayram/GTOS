@@ -44,6 +44,7 @@ begin:
 
 
 ; HER PROCESSIN STATE VE PID'LERINI ATAMAYI UNUTMA!!!
+; INTERRUPT DI VE EI ETMEYI UNUTMA!!!!
 proc_start:
     LXI B, 0xC350    ; take the address of cur mem
     LDAX B          ; now register A has the cur mem
@@ -111,19 +112,97 @@ std_exit:
     ;PUSH H  ; push H & L registers so that the starting address of entry can't be lost
     MVI A, 7
     CALL go_forward_start
-    LDAX D
-    ;POP H
-    PUSH psw
-    ;MOV L, A
-    MVI A, 8
+    LDAX D      ; 7th element is in A
+    PUSH psw    ; push it to the stack so that it can't lose its value while assigning it with 0 for another loop below
+    ; STACK POINTER REGISTERS
+    MVI A, 8    
+    CALL go_forward_start 
+    LDAX D  ; 8th element is in A
+    PUSH H  ; push starting address of entry so that it can't lose its value below
+    MOV H, A    ; 8th element is in H
+    POP psw     ; pop 7th element off the stack
+    MOV L, A    ; 7th element is in H
+    ; SPHL ; SON KERTEDE ACILACAK !!!!! H & L registerlarindaki degerler sp registerlarina bu komut ile gidecek. onun icin POP H yapinca H & L registerlarindaki degerler kayboldu diye dusunme
+    ; D & E REGISTERS
+    POP H   ; starting address of entry is now in H & L again
+    MVI A, 3
+    CALL go_forward_start   
+    LDAX D      ; 3rd element is in A
+    PUSH psw    ; 3rd element is in stack so that it can't lose its value below
+    MVI A, 4
     CALL go_forward_start
-    LDAX D
-    MOV H, A
+    LDAX D      ; 4th element is in A
+    MOV E, A    ; 4th element is in register E
+    POP psw     ; 3rd element is now in A again
+    MOV D, A    ; 3rd element is in register D
+    PUSH D      ; push D and E so that they can't lose their value  ; PCHL POP EDECEK!!!
+    ; H & L REGISTERS
+    MVI A, 5
+    CALL go_forward_start  
+    LDAX D      ; 5th element is in A
+    MOV D, H    ; move MSB 8 bits of starting address of entry so that starting address can't be lost
+    MOV H, A    ; 5th element is now in H
+    MVI A, 6
+    CALL go_forward_start
+    LDAX D      ; 6th element is in A
+    MOV E, L    ; move LSB 8 bits of starting address of entry so that starting address can't be lost
+    MOV L, A    ; 6th element is now in L
+    PUSH H      ; push H and L so that they can't lose their value   ; PCHL POP EDECEK!!!  BUNDAN SONRAKILERI BENIM POP ETMEM GEREKIYOR
+    MOV H, D    
+    MOV L, E    ; Take the starting address of entry back to H & L
+    ; BASE REGISTERS
+    MVI A, 0xB
+    CALL go_forward_start
+    LDAX D      ; base register low in register A
+    MOV E, A    ; move base register low to register E
+    PUSH D      ; push D & E to the stack so that value of E can't be lost
+    MVI A, 0xC
+    CALL go_forward_start
+    LDAX D      ; base register high in register A
+    POP D       ; pop D & E off the stack so that value of E can be back in register E
+    MOV D, A    ; move base register high to register D
+    PUSH D      ; BASE REGISTERS ARE PUSHED TO THE STACK. THEY NEEDED TO BE POPPED OFF!!!
+    ; PROGRAM COUNTER REGISTERS
+    PUSH H      ; push the starting address of entry to the stack
+    MVI A, 9 
+    CALL go_forward_start
+    LDAX D      ; program counter low is now in register A
+    MOV E, A    ; program counter low is now in register E
+    PUSH D      ; push program counter low to the stack
+    MVI A, 0xA
+    CALL go_forward_start
+    LDAX D      ; program counter high is now in register A
+    POP D       ; program counter low is popped off, it is now in register E
+    MOV D, A    ; program counter high is now in register D
+    POP H       ; pop the starting address of entry off the stack
+    PUSH D      ; !!!D & E have the program counter registers. They needed to be popped off to H & L!!
+    ; B & C REGISTERS
+    MVI A, 2
+    CALL go_forward_start 
+    LDAX D      ; register C is now in register A
+    PUSH psw    ; push the value of C to the stack
+    MVI A, 1
+    CALL go_forward_start
+    LDAX D      ; register B is now in register A
+    MOV B, A    ; copy the value of register B to register B
+    POP psw     ; pop the value of C off the stack to register A
+    MOV C, A    ; copy the value of register C to register C
+    PUSH B      ; push value of registers B & C to the stack. IT NEEDS TO BE POPPED OFF!!!!
+    ; cc REGISTER
+    MVI A, 0xD
+    LDAX D      ; value of cc is now in register A
+    PUSH psw
     POP psw
-    MOV L, A
-    HLT ; DRIVER
-    ; POP H YAPMAYI UNUTMA !!
-    ; SPHL ; SON KERTEDE ACILACAK !!!!!
+    ; A REGISTER
+    MOV D, H
+    MOV E, L
+    LDAX D      ; value of register A is now in register A
+    POP B       ; value of registers B & C are now in registers B & C again.
+    POP H       ; program counter registers are now in H & L, as it supposed to be
+    POP D       ; base registers are now in D & E, as it supposed to be
+    ; EI
+    ; PCHL      ; D & E and H & L are in their own place
+
 
 
 ; A register : upper bound variable, needs to be loaded before calling this subroutine
