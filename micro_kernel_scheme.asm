@@ -38,7 +38,9 @@ begin:
     LXI B, 0xC350    ; cur mem value
     MVI A, 0
     ;STAX B   ;KOD DRIVER ASAMASINDA BURA KAPALI KALACAK, SONRA ACILACAK; initialize cur mem with 0 by assigning to the address 0xC350 
-    jmp proc_start 
+    ;jmp proc_start 
+    MVI B, 0
+    jmp scheduler
 
 
 ; HER PROCESSIN STATE VE PID'LERINI ATAMAYI UNUTMA!!!
@@ -105,8 +107,40 @@ std_exit:
     POP psw ; cur mem is in A again
     LXI B, 0xC350   ; address of where cur mem is stored is in B & C
     STAX B  ; cur mem is updated
-    ; registers are needed to be set now
+    ; registers are needed to be set now. address of which entry of process table is taken is in H & L registers.
+    ;PUSH H  ; push H & L registers so that the starting address of entry can't be lost
+    MVI A, 7
+    CALL go_forward_start
+    LDAX D
+    ;POP H
+    PUSH psw
+    ;MOV L, A
+    MVI A, 8
+    CALL go_forward_start
+    LDAX D
+    MOV H, A
+    POP psw
+    MOV L, A
+    HLT ; DRIVER
+    ; POP H YAPMAYI UNUTMA !!
+    ; SPHL ; SON KERTEDE ACILACAK !!!!!
 
+
+; A register : upper bound variable, needs to be loaded before calling this subroutine
+; address of where the program is branched into this subroutine needs to be pushed to the stack so that flow of the program can be back where it is supposed to be at the end of this subroutine
+; atama oncesi adres H & L registerlarinda deger ile guncellenir(muhtemelne push edilecek) boylece hep go_forward yapilir
+go_forward_start:
+    MOV D, H
+    MOV E, L    ; starting address of entry is in D & E registers now so that they can be used for LDAX
+    MVI B, 0
+go_forward_loop:
+    CMP B
+    JZ go_forward_exit
+    INR B
+    INR E
+    JMP go_forward_loop
+go_forward_exit:
+    RET
 
 
 
