@@ -6,7 +6,7 @@ READ_MEM	equ 2
 PRINT_STR	equ 1
 READ_STR	equ 8
 
-NUM		equ 3
+NUM		equ 255
 	; Position for stack pointer
 stack   equ 0F000h
 
