@@ -8,7 +8,7 @@ PRINT_STR	equ 1
 READ_STR	equ 8
 LOAD_EXEC	equ 5
 PROCESS_EXIT equ 9
-WRITE_PC equ 10
+
 
 NUM equ 3
 RUN equ 1
@@ -131,19 +131,16 @@ begin:
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS II
-	LXI B, 03F7H	; (eski halinde F7)starting address of where the file name is stored : 1015.address
+	LXI B, 03F7H	; starting address of where the file name is stored : 1015.address
 	LXI H, 61A8H	; starting address of where the file is stored : 25000.address
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS III
-	LXI B, 0407H	; (eski halinde 07)dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
+	LXI B, 0407H	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
 	LXI H, 7530H	; dosyanin nereden itibaren RAM'e yazilacaginin baslangic adresi : 30000.adres
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; START KERNEL
-	; EI
-	;LXI H,0000H		; yeni prosesin kendi adres space'indeki ilk adresi
-	;LXI D,4E20H		; yeni prosesin kendi adres space'i, 5000. adres
     MVI B, 0            ; counter variable. needs to be loaded before calling scheduler subroutine
     jmp scheduler
 
@@ -152,10 +149,11 @@ forHandler:
 
 interruptHandler:
     DI
-    LXI SP, stack       ; assuming # of push inst equals # of pop inst so that it can be restarted at this address every time interrupt handle is called    ?????
-; HER PROCESSIN STATE VE PID'LERINI ATAMAYI UNUTMA!!!
-; INTERRUPT DI VE EI ETMEYI UNUTMA!!!!
-; LOAD EXEC system call no ekle!!!
+    LXI SP, stack       ; assuming # of push inst equals # of pop inst so that it can be restarted at this address every time interrupt handle is called    
+    
+
+
+; REMEMBER ADDING PID AND STATE OF PROCESSES AT FIRST!!
 proc_start:
     LXI B, 0xC350    ; take the address of cur mem
     LDAX B           ; now register A has the cur mem
@@ -227,49 +225,33 @@ std_exit:
     LDAX D      ; 3rd element is in A
     LXI D, 0xC356
     STAX D      ; value of register D is in 0xC356
-    ;PUSH psw    ; 3rd element is in stack so that it can't lose its value below
     MVI A, 6
     CALL go_forward_start
     LDAX D      ; 4th element is in A
     LXI D, 0xC355
     STAX D ; value of register E is in 0xC355
-    ;MOV E, A    ; 4th element is in register E
-    ;POP psw     ; 3rd element is now in A again
-    ;MOV D, A    ; 3rd element is in register D
-    ;PUSH D      ; push D and E so that they can't lose their value  ; PCHL POP EDECEK!!!
     ; H & L REGISTERS
     MVI A, 7
     CALL go_forward_start  
     LDAX D          ; 5th element is in A
     LXI D, 0xC358
     STAX D  ; value of register H is in 0xC358
-    ;MOV C, A        ; 5th element is in C(value of register H in C)
     MVI A, 8
     CALL go_forward_start
     LDAX D      ; 6th element is in A
     LXI D, 0xC357
     STAX D  ; value of register L is in 0xC357
-    ;MOV B, A    ; 6th element is in B(value of register L in B)
-    ;MOV A, B
-    ;MOV B, C
-    ;MOV C, A    ; swap operation. C needs to be assigned first since B will be used for looping in go_forward_start subroutine. however, value of B needs to be in C since value of L is low value than value of H. Thus, they're swapped
-    ;PUSH B      ; push B and C so that they can't lose their value(value of H & L)   ; PCHL POP EDECEK!!!  BUNDAN SONRAKILERI BENIM POP ETMEM GEREKIYOR
     ; BASE REGISTERS
     MVI A, 0xD
     CALL go_forward_start
     LDAX D      ; base register low in register A
     LXI D, 0xC351
     STAX D      ; base register low is in 0xC351 
-    ;MOV E, A    ; move base register low to register E
-    ;PUSH D      ; push D & E to the stack so that value of E can't be lost
     MVI A, 0xE
     CALL go_forward_start
     LDAX D      ; base register high in register A
     LXI D, 0xC352
     STAX D      ; base register high is in 0xC352
-    ;POP D       ; pop D & E off the stack so that value of E can be back in register E
-    ;MOV D, A    ; move base register high to register D
-    ; PUSH D      ; BASE REGISTERS ARE PUSHED TO THE STACK. THEY NEEDED TO BE POPPED OFF!!!
     ; PROGRAM COUNTER REGISTERS
     PUSH H      ; push the starting address of entry to the stack
     MVI A, 0xB 
@@ -277,30 +259,21 @@ std_exit:
     LDAX D      ; program counter low is now in register A
     LXI D, 0xC353
     STAX D      ; program counter low is in 0xC353
-    ;MOV E, A    ; program counter low is now in register E
-    ;PUSH D      ; push program counter low to the stack
     MVI A, 0xC
     CALL go_forward_start
     LDAX D      ; program counter high is now in register A
     LXI D, 0xC354
     STAX D      ; program counter high is in 0xC354
-    ;POP D       ; program counter low is popped off, it is now in register E
-    ;MOV D, A    ; program counter high is now in register D
     POP H       ; pop the starting address of entry off the stack
-    ; PUSH D      ; !!!D & E have the program counter registers. They needed to be popped off to H & L
     ; STACK POINTER REGISTERS
     MVI A, 9
     CALL go_forward_start
     LDAX D        ; 7th element is in A
     MOV C, A      ; sp low is in C
-    ; PUSH psw    ; push it to the stack so that it can't lose its value while assigning it with 0 for another loop below
     MVI A, 0xA    
     CALL go_forward_start 
     LDAX D      ; sp high is in A
     MOV B, A    ; sp high is in B
-    ;MOV A, B
-    ;MOV B, C
-    ;MOV C, A    ; there was a mistake for placing sp low & sp high in correct order. Thus, they're swapped. ?????
     PUSH B      ; push stack pointers to the stack
     ; B & C REGISTERS
     MVI A, 4
@@ -345,7 +318,6 @@ std_exit:
     MOV E, M    ; value of L is in E
     PUSH D      ; value of H & L are pushed to the stack so that PCHL can pop them off 
     
-    ; D & E ve H & L ' yi memory'den burada alip push'lasam, alttaki base reg ve pc konfigleri bozulmaz, pchl'de bu son iki elemani dogru yerden cekip dogru ilklendirir
 
     LXI H, 0xC352   ; base high
     MOV D, M        
@@ -360,9 +332,7 @@ std_exit:
     MOV H, D    ; program counters are in H & L
     MOV L, E
     POP D       ; base registers are in D & E
-    ; BU ADRESLERE ILGILI DEGERLERI YUKARIDA YUKLEMELIYIM!!!
-;    POP H       ; program counter registers are now in H & L, as it is supposed to be
-;    POP D       ; base registers are now in D & E, as it is supposed to be
+
     EI
     PCHL        ; D & E and H & L are in their own place
 
@@ -411,7 +381,7 @@ sec_loop:
     INR B
     JMP sec_loop
 sec_exit:
-    ; MVI B, 0 ; OLMASI GEREKIYOR MU EMIN DEGILIM!!!!
+    ; MVI B, 0 ; I'm not sure if this is supposed to be here or not
     POP B   ; pop B & C so that the counter variable can be taken back.
     RET
 terminate_os:
