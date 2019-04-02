@@ -223,56 +223,69 @@ std_exit:
     MVI A, 5
     CALL go_forward_start   
     LDAX D      ; 3rd element is in A
-    PUSH psw    ; 3rd element is in stack so that it can't lose its value below
+    LXI D, 0xC356
+    STAX D      ; value of register D is in 0xC356
+    ;PUSH psw    ; 3rd element is in stack so that it can't lose its value below
     MVI A, 6
     CALL go_forward_start
     LDAX D      ; 4th element is in A
-    MOV E, A    ; 4th element is in register E
-    POP psw     ; 3rd element is now in A again
-    MOV D, A    ; 3rd element is in register D
-    PUSH D      ; push D and E so that they can't lose their value  ; PCHL POP EDECEK!!!
+    LXI D, 0xC355
+    STAX D ; value of register E is in 0xC355
+    ;MOV E, A    ; 4th element is in register E
+    ;POP psw     ; 3rd element is now in A again
+    ;MOV D, A    ; 3rd element is in register D
+    ;PUSH D      ; push D and E so that they can't lose their value  ; PCHL POP EDECEK!!!
     ; H & L REGISTERS
     MVI A, 7
     CALL go_forward_start  
     LDAX D          ; 5th element is in A
-    MOV C, A        ; 5th element is in C(value of register H in C)
+    LXI D, 0xC358
+    STAX D  ; value of register H is in 0xC358
+    ;MOV C, A        ; 5th element is in C(value of register H in C)
     MVI A, 8
     CALL go_forward_start
     LDAX D      ; 6th element is in A
-    MOV B, A    ; 6th element is in B(value of register L in B)
-    MOV A, B
-    MOV B, C
-    MOV C, A    ; swap operation. C needs to be assigned first since B will be used for looping in go_forward_start subroutine. however, value of B needs to be in C since value of L is low value than value of H. Thus, they're swapped
-    PUSH B      ; push B and C so that they can't lose their value(value of H & L)   ; PCHL POP EDECEK!!!  BUNDAN SONRAKILERI BENIM POP ETMEM GEREKIYOR
+    LXI D, 0xC357
+    STAX D  ; value of register L is in 0xC357
+    ;MOV B, A    ; 6th element is in B(value of register L in B)
+    ;MOV A, B
+    ;MOV B, C
+    ;MOV C, A    ; swap operation. C needs to be assigned first since B will be used for looping in go_forward_start subroutine. however, value of B needs to be in C since value of L is low value than value of H. Thus, they're swapped
+    ;PUSH B      ; push B and C so that they can't lose their value(value of H & L)   ; PCHL POP EDECEK!!!  BUNDAN SONRAKILERI BENIM POP ETMEM GEREKIYOR
     ; BASE REGISTERS
     MVI A, 0xD
     CALL go_forward_start
     LDAX D      ; base register low in register A
-    MOV E, A    ; move base register low to register E
-    PUSH D      ; push D & E to the stack so that value of E can't be lost
+    LXI D, 0xC351
+    STAX D      ; base register low is in 0xC351 
+    ;MOV E, A    ; move base register low to register E
+    ;PUSH D      ; push D & E to the stack so that value of E can't be lost
     MVI A, 0xE
     CALL go_forward_start
     LDAX D      ; base register high in register A
-    POP D       ; pop D & E off the stack so that value of E can be back in register E
-    MOV D, A    ; move base register high to register D
-    ;MOV A, D   
-    ;MOV D, E
-    ;MOV E, A    ; swap operation. There was a mistake of values in the register D & E. They've been swapped. ?????
-    PUSH D      ; BASE REGISTERS ARE PUSHED TO THE STACK. THEY NEEDED TO BE POPPED OFF!!!
+    LXI D, 0xC352
+    STAX D      ; base register high is in 0xC352
+    ;POP D       ; pop D & E off the stack so that value of E can be back in register E
+    ;MOV D, A    ; move base register high to register D
+    ; PUSH D      ; BASE REGISTERS ARE PUSHED TO THE STACK. THEY NEEDED TO BE POPPED OFF!!!
     ; PROGRAM COUNTER REGISTERS
     PUSH H      ; push the starting address of entry to the stack
     MVI A, 0xB 
     CALL go_forward_start
     LDAX D      ; program counter low is now in register A
-    MOV E, A    ; program counter low is now in register E
-    PUSH D      ; push program counter low to the stack
+    LXI D, 0xC353
+    STAX D      ; program counter low is in 0xC353
+    ;MOV E, A    ; program counter low is now in register E
+    ;PUSH D      ; push program counter low to the stack
     MVI A, 0xC
     CALL go_forward_start
     LDAX D      ; program counter high is now in register A
-    POP D       ; program counter low is popped off, it is now in register E
-    MOV D, A    ; program counter high is now in register D
+    LXI D, 0xC354
+    STAX D      ; program counter high is in 0xC354
+    ;POP D       ; program counter low is popped off, it is now in register E
+    ;MOV D, A    ; program counter high is now in register D
     POP H       ; pop the starting address of entry off the stack
-    PUSH D      ; !!!D & E have the program counter registers. They needed to be popped off to H & L!!
+    ; PUSH D      ; !!!D & E have the program counter registers. They needed to be popped off to H & L
     ; STACK POINTER REGISTERS
     MVI A, 9
     CALL go_forward_start
@@ -315,8 +328,39 @@ std_exit:
     POP psw     ; pop accumulator and condition flags off the stack
     POP B       ; value of registers B & C are now in registers B & C again.
     POP H       ; stack pointers are popped off
-    POP H       ; program counter registers are now in H & L, as it is supposed to be
-    POP D       ; base registers are now in D & E, as it is supposed to be
+
+    SPHL        ; H & L are free to use
+    
+    LXI H, 0xC356
+    MOV D, M    ; value of D is in D
+    LXI H, 0xC355
+    MOV E, M    ; value of E is in E
+    PUSH D      ; value of D & E are pushed to the stack so that PCHL can pop them off
+
+    LXI H, 0xC358
+    MOV D, M    ; value of H is in D
+    LXI H, 0xC357
+    MOV E, M    ; value of L is in E
+    PUSH D      ; value of H & L are pushed to the stack so that PCHL can pop them off 
+    
+    ; D & E ve H & L ' yi memory'den burada alip push'lasam, alttaki base reg ve pc konfigleri bozulmaz, pchl'de bu son iki elemani dogru yerden cekip dogru ilklendirir
+
+    LXI H, 0xC352   ; base high
+    MOV D, M        
+    LXI H, 0xC351   ; base low
+    MOV E, M        
+    PUSH D
+    LXI H, 0xC354   ; pc high
+    MOV D, M        
+    LXI H, 0xC353   ; pc low
+    MOV E, M        
+    
+    MOV H, D    ; program counters are in H & L
+    MOV L, E
+    POP D       ; base registers are in D & E
+    ; BU ADRESLERE ILGILI DEGERLERI YUKARIDA YUKLEMELIYIM!!!
+;    POP H       ; program counter registers are now in H & L, as it is supposed to be
+;    POP D       ; base registers are now in D & E, as it is supposed to be
     EI
     PCHL        ; D & E and H & L are in their own place
 
