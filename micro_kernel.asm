@@ -45,8 +45,10 @@ GTU_OS:	DI
 	org 03E8H
 
 
-proc1: dw  'Factorize.com',00H		
-proc2: dw  'ShowPrimes.com',00H
+;proc1: dw  'Factorize.com',00H		
+proc1: dw 'deneme1.com',00H
+proc2: dw 'deneme2.com',00H
+;proc2: dw  'ShowPrimes.com',00H
 proc3: dw  'Palindrome.com', 00H
 
 begin:	
@@ -61,67 +63,67 @@ begin:
     LXI B, 0x2710
     MVI A, 1
     STAX B
-    LXI B, 0x2717
-    MVI A, 0x29
-    STAX B
-    LXI B, 0x2718
+    LXI B, 0x2719
     MVI A, 0xF
     STAX B
-    LXI B, 0x2719
-    MVI A, 0
-    STAX B
     LXI B, 0x271A
-    MVI A, 0
+    MVI A, 0x29
     STAX B
     LXI B, 0x271B
-    MVI A, 0x4E
+    MVI A, 0
     STAX B
     LXI B, 0x271C
+    MVI A, 0
+    STAX B
+    LXI B, 0x271D
     MVI A, 0x20
+    STAX B
+    LXI B, 0x271E
+    MVI A, 0x4E
     STAX B
         ; PROCESS II
     LXI B, 0x2910
     MVI A, 1
     STAX B
-    LXI B, 0x2917
-    MVI A, 0x2B
-    STAX B
-    LXI B, 0x2918
+    LXI B, 0x2919
     MVI A, 0xF
     STAX B
-    LXI B, 0x2919
-    MVI A, 0
-    STAX B
     LXI B, 0x291A
-    MVI A, 0
+    MVI A, 0x2B
     STAX B
     LXI B, 0x291B
-    MVI A, 0x61
+    MVI A, 0
     STAX B
     LXI B, 0x291C
+    MVI A, 0
+    STAX B
+    LXI B, 0x291D
     MVI A, 0xA8
+    STAX B
+    LXI B, 0x291E
+    MVI A, 0x61
     STAX B
         ; PROCESS III
     LXI B, 0x2B10
     MVI A, 1
     STAX B
-    LXI B, 0x2B17
-    MVI A, 0x2D
-    STAX B
-    LXI B, 0x2B18
+    LXI B, 0x2B19
     MVI A, 0xF
     STAX B
-    LXI B, 0x2B19
-    MVI A, 0
-    STAX B
     LXI B, 0x2B1A
-    MVI A, 0
+    MVI A, 0x2D
     STAX B
     LXI B, 0x2B1B
-    MVI A, 0x75
+    MVI A, 0
     STAX B
     LXI B, 0x2B1C
+    MVI A, 0
+    STAX B
+    LXI B, 0x2B1D
     MVI A, 0x30
+    STAX B
+    LXI B, 0x2B1E
+    MVI A, 0x75
     STAX B
     ; PROCESS I
 	LXI B, 03E8H	; starting address of where the file name is stored : 1010. address
@@ -129,12 +131,12 @@ begin:
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS II
-	LXI B, 03F7H	; starting address of where the file name is stored : 1015.address
+	LXI B, 03F5H	; (eski halinde F7)starting address of where the file name is stored : 1015.address
 	LXI H, 61A8H	; starting address of where the file is stored : 25000.address
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS III
-	LXI B, 0407H	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
+	LXI B, 0402H	; (eski halinde 07)dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
 	LXI H, 7530H	; dosyanin nereden itibaren RAM'e yazilacaginin baslangic adresi : 30000.adres
 	MVI A, LOAD_EXEC
 	call GTU_OS
@@ -162,8 +164,8 @@ proc_start:
     JMP mult_start  ; loop, starting from 0 to cur mem
     mult_return:    ; H & L have the address of which process table entry is updated
     INR L
-    INR L       ; H & L points now where the registers will be stored
-    LXI D, 0x0100    ; D & E points now where the registers are stored
+    INR L       ; H & L points now where the registers will be stored(0x..12)
+    LXI D, 0x0100    ; D & E points where the registers are stored now
     JMP to_process_start
     process_return:
     ; end of adjuster
@@ -218,11 +220,11 @@ std_exit:
     STAX B  ; cur mem is updated ?????
     ; registers are needed to be set now. address of which entry of process table is taken is in H & L registers.
     ; D & E REGISTERS
-    MVI A, 3
+    MVI A, 5
     CALL go_forward_start   
     LDAX D      ; 3rd element is in A
     PUSH psw    ; 3rd element is in stack so that it can't lose its value below
-    MVI A, 4
+    MVI A, 6
     CALL go_forward_start
     LDAX D      ; 4th element is in A
     MOV E, A    ; 4th element is in register E
@@ -230,41 +232,41 @@ std_exit:
     MOV D, A    ; 3rd element is in register D
     PUSH D      ; push D and E so that they can't lose their value  ; PCHL POP EDECEK!!!
     ; H & L REGISTERS
-    MVI A, 5
+    MVI A, 7
     CALL go_forward_start  
     LDAX D          ; 5th element is in A
-    MOV C, A        ; 5th element is in C
-    MVI A, 6
+    MOV C, A        ; 5th element is in C(value of register H in C)
+    MVI A, 8
     CALL go_forward_start
     LDAX D      ; 6th element is in A
-    MOV B, A    ; 6th element is in B
+    MOV B, A    ; 6th element is in B(value of register L in B)
     MOV A, B
     MOV B, C
-    MOV C, A    ; swap operation. There was a mistake of values in the register B & C. They've been swapped.
+    MOV C, A    ; swap operation. C needs to be assigned first since B will be used for looping in go_forward_start subroutine. however, value of B needs to be in C since value of L is low value than value of H. Thus, they're swapped
     PUSH B      ; push B and C so that they can't lose their value(value of H & L)   ; PCHL POP EDECEK!!!  BUNDAN SONRAKILERI BENIM POP ETMEM GEREKIYOR
     ; BASE REGISTERS
-    MVI A, 0xB
+    MVI A, 0xD
     CALL go_forward_start
     LDAX D      ; base register low in register A
     MOV E, A    ; move base register low to register E
     PUSH D      ; push D & E to the stack so that value of E can't be lost
-    MVI A, 0xC
+    MVI A, 0xE
     CALL go_forward_start
     LDAX D      ; base register high in register A
     POP D       ; pop D & E off the stack so that value of E can be back in register E
     MOV D, A    ; move base register high to register D
-    MOV A, D   
-    MOV D, E
-    MOV E, A    ; swap operation. There was a mistake of values in the register D & E. They've been swapped. ?????
+    ;MOV A, D   
+    ;MOV D, E
+    ;MOV E, A    ; swap operation. There was a mistake of values in the register D & E. They've been swapped. ?????
     PUSH D      ; BASE REGISTERS ARE PUSHED TO THE STACK. THEY NEEDED TO BE POPPED OFF!!!
     ; PROGRAM COUNTER REGISTERS
     PUSH H      ; push the starting address of entry to the stack
-    MVI A, 9 
+    MVI A, 0xB 
     CALL go_forward_start
     LDAX D      ; program counter low is now in register A
     MOV E, A    ; program counter low is now in register E
     PUSH D      ; push program counter low to the stack
-    MVI A, 0xA
+    MVI A, 0xC
     CALL go_forward_start
     LDAX D      ; program counter high is now in register A
     POP D       ; program counter low is popped off, it is now in register E
@@ -272,46 +274,49 @@ std_exit:
     POP H       ; pop the starting address of entry off the stack
     PUSH D      ; !!!D & E have the program counter registers. They needed to be popped off to H & L!!
     ; STACK POINTER REGISTERS
-    MVI A, 7
+    MVI A, 9
     CALL go_forward_start
     LDAX D        ; 7th element is in A
     MOV C, A      ; sp low is in C
     ; PUSH psw    ; push it to the stack so that it can't lose its value while assigning it with 0 for another loop below
-    MVI A, 8    
+    MVI A, 0xA    
     CALL go_forward_start 
     LDAX D      ; sp high is in A
     MOV B, A    ; sp high is in B
-    MOV A, B
-    MOV B, C
-    MOV C, A    ; there was a mistake for placing sp low & sp high in correct order. Thus, they're swapped. ?????
+    ;MOV A, B
+    ;MOV B, C
+    ;MOV C, A    ; there was a mistake for placing sp low & sp high in correct order. Thus, they're swapped. ?????
     PUSH B      ; push stack pointers to the stack
     ; B & C REGISTERS
-    MVI A, 2
+    MVI A, 4
     CALL go_forward_start 
     LDAX D      ; register C is now in register A
     PUSH psw    ; push the value of C to the stack
-    MVI A, 1
+    MVI A, 3
     CALL go_forward_start
     LDAX D      ; register B is now in register A
     MOV B, A    ; copy the value of register B to register B
     POP psw     ; pop the value of C off the stack to register A
     MOV C, A    ; copy the value of register C to register C
     PUSH B      ; push value of registers B & C to the stack. IT NEEDS TO BE POPPED OFF!!!!
-    ; cc REGISTER
-    MVI A, 0xD
+    ; A & cc REGISTERS
+    MVI A, 0xF
     CALL go_forward_start
     LDAX D      ; value of cc is now in register A
-    PUSH psw
-    POP psw
+    MOV C, A    ; condition flags are in register C
     ; A REGISTER
     MOV D, H
-    MOV E, L
+    MOV E, L    ; 0x..10 is here. It needs to be 0x..12 for register A
+    INR E
+    INR E
     LDAX D      ; value of register A is now in register A
+    MOV B, A    ; accumulator is in register B
+    PUSH B      ; push accumulator and condition flags to the stack
+    POP psw     ; pop accumulator and condition flags off the stack
     POP B       ; value of registers B & C are now in registers B & C again.
     POP H       ; stack pointers are popped off
-    ;SPHL
-    POP H       ; program counter registers are now in H & L, as it supposed to be
-    POP D       ; base registers are now in D & E, as it supposed to be
+    POP H       ; program counter registers are now in H & L, as it is supposed to be
+    POP D       ; base registers are now in D & E, as it is supposed to be
     EI
     PCHL        ; D & E and H & L are in their own place
 
