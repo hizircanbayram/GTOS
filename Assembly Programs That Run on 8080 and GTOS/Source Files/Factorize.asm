@@ -58,4 +58,5 @@ last:
 	sui 1
 	jmp main_loop
 exit:
-	hlt
+	mvi a, PROCESS_EXIT
+	call GTU_OS

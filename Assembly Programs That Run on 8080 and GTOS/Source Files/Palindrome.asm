@@ -106,10 +106,12 @@ write_palindrom:
 	mvi a, PRINT_STR
 	lxi b, pal
 	call GTU_OS
-	hlt
+	mvi a, PROCESS_EXIT
+	call GTU_OS
 write_not_palindrom:
 	mvi a, PRINT_STR
 	lxi b, notpal
 	call GTU_OS
-	hlt
+	mvi a, PROCESS_EXIT
+	call GTU_OS
 

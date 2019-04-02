@@ -1,14 +1,15 @@
 .binfile ShowPrimes.com
-	; OS call list
 PRINT_B		equ 4
 PRINT_MEM	equ 3
 READ_B		equ 7
 READ_MEM	equ 2
 PRINT_STR	equ 1
 READ_STR	equ 8
-LOAD_EXEC   equ 5
+LOAD_EXEC	equ 5
 PROCESS_EXIT equ 9
 
+
+NUM		equ 255
 
 
 	org 000H
@@ -29,87 +30,76 @@ GTU_OS: DI
 	EI
 	ret
 	; ---------------------------------------------------------------
-	; YOU SHOULD NOT CHANGE ANYTHING ABOVE THIS LINE        
+	; YOU SHOULD NOT CHANGE ANYTHING ABOVE THIS LINE   
 
-	; This program prints a null terminated string to the screen
 
-string:	ds 0FFH 	; null terminated string
-;string dw 'aabbcfcbbaaaa',00H
-pal:	dw 'palindrom',00H 	; prompt for detecting that it's a palindrom
-notpal: dw 'not palindrom',00H ; prompt for detecting that it's not a palindrom
+prime_prompt:	dw 'prime',00AH,00H 
+not_prime_prompt: dw '',00AH,00H
 
 
 
 
 
-; finds where the given string whose address kept in register A and B ends. Address of the last element of the string is kept in the registers H and L.
-end_string_begin:
-	LXI B, string			; reg H and L keep the address
-	mvi a, 0				; length is in the accumulator
-end_string_loop:
-	mov b, M 				; char is here | M is a symbolic reference to the H and L registers
-	push a					; length is in the stack
-	mov a, b 				; char is in accumulator
-	cpi 0 					; if char null -> zero flag is 1
-	jz exit_end_string
-	inx H 					; H means H & L registers here. increment the address by one
-	pop a					; length is in the accumulator
-	inr a
-	jmp end_string_loop	
-exit_end_string: 				
-	dcx H	
-	pop a					; length is in the accumulator
-	sui 1
-	mov e, a
-	jmp back_main_string
-
-
-
-
-
-; finds if given string is palindrome or not. According to that, it jumps to a label defined in the main sub routine.
-palindrome_begin:
-	mov a, e 					; right variable is in accumulator. left variable is in register D
-	cmp d						; compare right and left
-	jz write_palindrom 			; right and left are the same(indexes). it's a palindrome
-	jc write_palindrom			; lef > rig : d > a : a < d
-	push D						; right and left variables are pushed to stack
-	mov a, M					; last character is in the accumulator
-	push H						; push the address of the last char so that its address doesn't lose
-	mov h, b
-	mov l, c
-	mov d, M					; first character is in the register D
-	cmp d						; compare the last and first character
-	jnz write_not_palindrom		; if not equal, not a palindrome 
-	pop H						; take the address of the last char back so that it can be decremented by one
-	dcr l						; decrements l by one so that the address of the last character is decremented by one too
-	inr c						; increment c by one so that the address of the first character is increased by one too
-	pop D						; take the right and left variables back
-	dcr e						; decrease the right var
-	inr d						; increase the left var
-	jmp palindrome_begin
-
-
-
-
-
-; main sub routine.
 begin:
-	LXI B, string 			; address of the first character is kept in the registers B and C	
-	mvi a, READ_STR
+	LXI SP, 0x2B0F
+	mvi d, NUM
+main_loop:
+	mov b, d
+	mvi a, PRINT_B
 	call GTU_OS
-	LXI H, string
-	mvi d, 0				; left is assigned to register D
-	jmp end_string_begin 	; address of the last character is kept in the registers H and L. right is assigned to register E. length of the string is in the register E
-	back_main_string:		
-	jmp palindrome_begin
-write_palindrom:
+	jmp prime_begin
+	back_main:
+	mov a, d
+	sui 1
+	mov d, a
+	cpi 1 				; number decreased down to 2. zero bit is set. the program needs to be terminated
+	jnz main_loop
+	mvi a, PROCESS_EXIT
+	call GTU_OS
+
+
+
+
+
+prime_begin:
+	mov c, d			; number that is checked if it is prime is here
+	mov a, c			; number is assigned to the accumulator so that if it is 2, it can simply be returned that it is a prime number
+	cpi 2				
+	jz write_prime		; a == b | if the number is 2, it's a prime number
+	jc write_not_prime  ; a < b  | if the number is less than 2, it's not a prime number at all
+	mov a, d			; increment var is here
+	sui 1				; num - 1
+prime_loop:
+	mov b, a 			; increment var is assigned to b
+	mov a, c    		; num is assigned to accumulator so that it can be manipulated(20)
+divided_loop:
+	cmp b
+	jz sublab 			; a == b
+	jnc sublab 			; a > b
+	jc exit_divided 	; a < b
+sublab:
+	sub b
+	jmp divided_loop
+exit_divided:
+	cpi 0 				; compare accumulator
+	jnz last 			; if a isn't equal to 0, meaning not divided perfectly, zero bit is 0. means jump
+	jmp write_not_prime	; if it is here, means divided exactly. not prime so
+last:					; a round is over. now if the loop is going to be executed is decided
+	mov a, b
+	cpi 2 				; if not equal, set zero bit
+	jz write_prime 		; if zero bit is equal to 1, jump
+	sui 1
+	jmp prime_loop
+write_prime:
 	mvi a, PRINT_STR
-	lxi b, pal
+	lxi b, prime_prompt
 	call GTU_OS
-	hlt
-write_not_palindrom:
+	jmp back_main
+write_not_prime:
 	mvi a, PRINT_STR
-	lxi b, notpal
+	lxi b, not_prime_prompt
 	call GTU_OS
-	hlt
+	jmp back_main	
+
+
+

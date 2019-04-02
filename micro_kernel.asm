@@ -7,8 +7,10 @@ READ_MEM	equ 2
 PRINT_STR	equ 1
 READ_STR	equ 8
 LOAD_EXEC	equ 5
+PROCESS_EXIT equ 9
+WRITE_PC equ 10
 
-NUM equ 2
+NUM equ 3
 RUN equ 1
 DONE equ 0
 
@@ -45,10 +47,8 @@ GTU_OS:	DI
 	org 03E8H
 
 
-;proc1: dw  'Factorize.com',00H		
-proc1: dw 'deneme1.com',00H
-proc2: dw 'deneme2.com',00H
-;proc2: dw  'ShowPrimes.com',00H
+proc1: dw  'Factorize.com',00H		
+proc2: dw  'ShowPrimes.com',00H
 proc3: dw  'Palindrome.com', 00H
 
 begin:	
@@ -131,12 +131,12 @@ begin:
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS II
-	LXI B, 03F5H	; (eski halinde F7)starting address of where the file name is stored : 1015.address
+	LXI B, 03F7H	; (eski halinde F7)starting address of where the file name is stored : 1015.address
 	LXI H, 61A8H	; starting address of where the file is stored : 25000.address
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS III
-	LXI B, 0402H	; (eski halinde 07)dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
+	LXI B, 0407H	; (eski halinde 07)dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
 	LXI H, 7530H	; dosyanin nereden itibaren RAM'e yazilacaginin baslangic adresi : 30000.adres
 	MVI A, LOAD_EXEC
 	call GTU_OS
@@ -171,8 +171,7 @@ proc_start:
     ; end of adjuster
     MVI B, 0
     ; 0x2710'dan degil, kaldigi yerden devam etmeli donguye...
-    JMP state_exit_control
-    sec_return:
+    CALL state_exit_control
     ; there is stil at least one process that is not over yet
     MVI B, 0    
     JMP scheduler
@@ -181,12 +180,15 @@ proc_start:
 ; B register : counter variable, needs to be loaded before calling this subroutine.
 scheduler:
     DI
+    MVI B, 0    ; ?????
+    CALL state_exit_control
     LXI H, 0xC350   ; H & L have the address of cur mem
     MOV A, M        ; A has the cur mem
     MVI D, 02H  ; MSB 8 bits of factor
     MVI E, 00H  ; LSB 8 bits of factor
     MVI H, 27H  ; MSB 8 bits of starting address
     MVI L, 10H  ; LSB 8 bits of starting address(first 2 bits are for state & PID. They shouldn't be assigned to any registers)
+    MVI B, 0    ; counter variable is set to 0 since register B is updated when it is in state_exit_control subroutine so that the loop can be started from 0
 reach_the_address_loop:
     CMP B 
     JZ rta_exit ; if counter variable is looped enough, get out of the loop
@@ -411,7 +413,7 @@ sec_loop:
 sec_exit:
     ; MVI B, 0 ; OLMASI GEREKIYOR MU EMIN DEGILIM!!!!
     POP B   ; pop B & C so that the counter variable can be taken back.
-    JMP sec_return
+    RET
 terminate_os:
     HLT
 
