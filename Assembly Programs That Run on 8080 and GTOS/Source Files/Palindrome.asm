@@ -6,9 +6,9 @@ READ_B		equ 7
 READ_MEM	equ 2
 PRINT_STR	equ 1
 READ_STR	equ 8
+LOAD_EXEC   equ 5
+PROCESS_EXIT equ 9
 
-	; Position for stack pointer
-stack   equ 0F000h
 
 	org 000H
 	jmp begin
@@ -94,7 +94,6 @@ palindrome_begin:
 
 ; main sub routine.
 begin:
-	LXI SP,0x2D0F 
 	LXI B, string 			; address of the first character is kept in the registers B and C	
 	mvi a, READ_STR
 	call GTU_OS
@@ -113,9 +112,4 @@ write_not_palindrom:
 	lxi b, notpal
 	call GTU_OS
 	hlt
-
-
-
-
-
 

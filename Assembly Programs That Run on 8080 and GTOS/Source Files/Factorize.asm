@@ -5,10 +5,10 @@ READ_B		equ 7
 READ_MEM	equ 2
 PRINT_STR	equ 1
 READ_STR	equ 8
+LOAD_EXEC   equ 5
+PROCESS_EXIT equ 9
 
 
-	; Position for stack pointer
-stack   equ 0F000h
 
 	org 000H
 	jmp begin
@@ -31,7 +31,6 @@ GTU_OS: DI
 	; YOU SHOULD NOT CHANGE ANYTHING ABOVE THIS LINE   
 
 begin:
-	LXI SP, 0x290F 
 	mvi a, READ_B
 	call GTU_OS
 	mov c, b
