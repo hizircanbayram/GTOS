@@ -39,7 +39,7 @@ int main (int argc, char**argv)
 		}
             
 		//printf("cur mem : %d\n", theCPU.memory->physicalAt(0xC350));
-		//printf("%d	%d	%d\n", theCPU.memory->physicalAt(0x2710), theCPU.memory->physicalAt(0x2910), theCPU.memory->physicalAt(0x2B10));
+		//printf("%d	%d	%d  %d  %d\n", theCPU.memory->physicalAt(0x2710), theCPU.memory->physicalAt(0x2910), theCPU.memory->physicalAt(0x2B10), theCPU.memory->physicalAt(0x2D10), theCPU.memory->physicalAt(0x2F10));
 	}	while (!theCPU.isHalted());
 	
 	return 0;

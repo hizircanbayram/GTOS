@@ -12,7 +12,7 @@
 
 class MemoryBase {
 public:
-        MemoryBase(){};
+    MemoryBase(){};
 		virtual uint8_t & at(uint32_t) = 0;
 		virtual uint8_t & physicalAt(uint32_t) = 0;
 

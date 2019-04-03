@@ -67,7 +67,8 @@ even_number:
     CALL division_two_start
     JMP collatz_sequence
 collatz_exit:
-    HLT ; PROGRAMIN DOGRU CALISTIGINDAN EMIN OLDUKTAN SONRA PROCESS EXIT ILE CIKIS YAP !!!
+    MVI A, PROCESS_EXIT
+	CALL GTU_OS
 
 
 

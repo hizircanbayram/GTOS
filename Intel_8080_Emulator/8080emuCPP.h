@@ -40,9 +40,7 @@
   typedef unsigned long uint32_t;
   typedef unsigned long long uint64_t;
 #endif
-
 #include "memoryBase.h"
-
 //#include <sys/time>
 
 //Some code cares that these flags are in exact 
@@ -81,18 +79,32 @@ typedef struct State8080 {
 class CPU8080 {
 	friend class GTUOS;
 public:
-        CPU8080(MemoryBase * mem);
+	uint8_t interrupt = 0;  // Interrupt
+	uint8_t interrupt_code =0; // Interrupt code Unnecessary
+	uint8_t quantum = 80;  // Round Robin quantum
+	uint8_t scheduler_timer = 0; //Current Execution Time
+	uint8_t initialized = 0;
+	uint16_t int_buffer = 256; // Interrupt Buffer Address
+       CPU8080(MemoryBase *mem);        
 		~CPU8080();
         unsigned Emulate8080p(int debug = 0);
+        void ClearInterrupt();
+	void raiseInterrupt(uint8_t code);
+	void dispatchScheduler();
         bool isHalted() const;
         bool isSystemCall() const;
+	uint16_t getInterruptBufferAddress(){return int_buffer;}
+	void setInterruptBufferAddress(uint16_t address){int_buffer = address;}
+	void setQuantum(uint8_t quant);
+	void onInterrupt();
 	void ReadFileIntoMemoryAt(const char* filename, uint32_t offset);
 private:
-        State8080 * state;
-        MemoryBase * memory;
-		unsigned char * lastOpcode;
 		void operator=(const CPU8080 & o) {}
 		CPU8080(const CPU8080 & o) {}
+
+        State8080 * state;
+        MemoryBase * memory;
+	unsigned char * lastOpcode;
 };
 
 #endif

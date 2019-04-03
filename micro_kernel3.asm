@@ -10,7 +10,7 @@ LOAD_EXEC	equ 5
 PROCESS_EXIT    equ 9
 
 
-NUM equ 9
+NUM equ 6
 RUN equ 1
 DONE equ 0
 
@@ -47,16 +47,16 @@ GTU_OS:	DI
 	org 03E8H
 
 
-proc1: dw  'Factorize.com',00H		
-proc2: dw  'Factorize.com',00H		
-proc3: dw  'Factorize.com',00H		
-proc4: dw  'Factorize.com',00H		
-proc5: dw  'Factorize.com',00H		
-proc6: dw  'Factorize.com',00H
-proc7: dw  'Factorize.com',00H		
-proc8: dw  'Factorize.com',00H		
-proc9: dw  'Factorize.com',00H
-proc10: dw 'Factorize.com',00H
+proc1: dw  'Collatz.com',00H		
+proc2: dw  'Collatz.com',00H		
+proc3: dw  'Collatz.com',00H		
+proc4: dw  'Sum.com',00H		
+proc5: dw  'Sum.com',00H		
+proc6: dw  'Sum.com',00H
+proc7: dw  'ShowPrimes.com',00H		
+proc8: dw  'ShowPrimes.com',00H		
+proc9: dw  'ShowPrimes.com',00H
+proc10: dw 'ShowPrimes.com',00H
 
 begin:	
 	DI
@@ -270,42 +270,42 @@ begin:
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS II
-	LXI B, 03F7H	; starting address of where the file name is stored : 1015.address
+	LXI B, 03F5H	; starting address of where the file name is stored : 1015.address
 	LXI H, 57E4H	; starting address of where the file is stored : 25000.address
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS III
-	LXI B, 0406H	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
+	LXI B, 0402H	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
 	LXI H, 61A8H	; dosyanin nereden itibaren RAM'e yazilacaginin baslangic adresi : 30000.adres
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS IV
-	LXI B, 0415H	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
+	LXI B, 040FH	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
 	LXI H, 6B6CH	; dosyanin nereden itibaren RAM'e yazilacaginin baslangic adresi : 35000.adres
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS V
-	LXI B, 0424H	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
+	LXI B, 0418H	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
 	LXI H, 7530H	; dosyanin nereden itibaren RAM'e yazilacaginin baslangic adresi : 35000.adres
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS VI
-    LXI B, 0433H
+    LXI B, 0421H
     LXI H, 0x7EF4   ; 32500d
     MVI A, LOAD_EXEC
     call GTU_OS
     ; PROCESS VII
-    LXI B, 0442H
+    LXI B, 042AH
     LXI H, 0x88B8   ; 35000d
     MVI A, LOAD_EXEC
     call GTU_OS
     ; PROCESS VIII
-    LXI B, 0451H
+    LXI B, 043AH
     LXI H, 0x927C   ; 37500d
     MVI A, LOAD_EXEC
     call GTU_OS
     ; PROCESS IX
-    LXI B, 0460H
+    LXI B, 044AH
     LXI H, 0x9C40   ; 40000d
     MVI A, LOAD_EXEC
     call GTU_OS

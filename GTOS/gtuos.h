@@ -11,14 +11,17 @@ class GTUOS{
 	public:
 		GTUOS();
 		~GTUOS();
-		uint64_t handleCall(const CPU8080 & cpu);
+		uint64_t handleCall(CPU8080 & cpu);
 		uint64_t call_print_b(const CPU8080 & cpu);
 		uint64_t call_print_mem(const CPU8080 & cpu);
 		uint64_t call_print_str(const CPU8080 & cpu);
 		uint64_t call_read_b(const CPU8080 & cpu);
 		uint64_t call_read_mem(const CPU8080 & cpu);
 		uint64_t call_read_str(const CPU8080 & cpu);
-		void writeMemoryIntoFile(const CPU8080 &cpu);
+        uint64_t load_exec(CPU8080 & cpu);
+        uint64_t process_exit(CPU8080 & cpu);
+        uint64_t set_quantum(CPU8080 & cpu);
+
 	private:
 		ofstream oFile;
 		ifstream inFile;
@@ -38,6 +41,9 @@ class GTUOS{
 		syscall READ_MEM = syscall(2, 10);
 		syscall PRINT_STR = syscall(1, 10); // 10 cycles per character
 		syscall READ_STR = syscall(8, 10); // 10 cycles per character
+        syscall LOAD_EXEC = syscall(5, 100);
+        syscall PROCESS_EXIT = syscall(9, 80);
+        syscall SET_QUANTUM = syscall(6, 7);
 };
 
 #endif

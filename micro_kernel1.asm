@@ -7,7 +7,7 @@ READ_MEM	equ 2
 PRINT_STR	equ 1
 READ_STR	equ 8
 LOAD_EXEC	equ 5
-PROCESS_EXIT equ 9
+PROCESS_EXIT    equ 9
 
 
 NUM equ 3
@@ -47,9 +47,16 @@ GTU_OS:	DI
 	org 03E8H
 
 
-proc1: dw  'Factorize.com',00H		
-proc2: dw  'ShowPrimes.com',00H
-proc3: dw  'Palindrome.com', 00H
+proc1: dw  'Collatz.com',00H		
+proc2: dw  'ShowPrimes.com',00H		
+proc3: dw  'Sum.com',00H		
+proc4: dw  'ShowPrimes.com',00H		
+proc5: dw  'ShowPrimes.com',00H		
+proc6: dw  'ShowPrimes.com',00H
+proc7: dw  'ShowPrimes.com',00H		
+proc8: dw  'ShowPrimes.com',00H		
+proc9: dw  'ShowPrimes.com',00H
+proc10: dw 'ShowPrimes.com',00H
 
 begin:	
 	DI
@@ -98,10 +105,10 @@ begin:
     MVI A, 0
     STAX B
     LXI B, 0x291D
-    MVI A, 0xA8
+    MVI A, 0xE4
     STAX B
     LXI B, 0x291E
-    MVI A, 0x61
+    MVI A, 0x57
     STAX B
         ; PROCESS III
     LXI B, 0x2B10
@@ -120,10 +127,142 @@ begin:
     MVI A, 0
     STAX B
     LXI B, 0x2B1D
-    MVI A, 0x30
+    MVI A, 0xA8
     STAX B
     LXI B, 0x2B1E
+    MVI A, 0x61
+    STAX B
+        ; PROCESS IV
+    LXI B, 0x2D10
+    MVI A, 1
+    STAX B
+    LXI B, 0x2D19
+    MVI A, 0xF
+    STAX B
+    LXI B, 0x2D1A
+    MVI A, 0x2F
+    STAX B
+    LXI B, 0x2D1B
+    MVI A, 0
+    STAX B
+    LXI B, 0x2D1C
+    MVI A, 0
+    STAX B
+    LXI B, 0x2D1D
+    MVI A, 0x6C
+    STAX B
+    LXI B, 0x2D1E
+    MVI A, 0x6B
+    STAX B
+        ; PROCESS V
+    LXI B, 0x2F10
+    MVI A, 1
+    STAX B
+    LXI B, 0x2F19
+    MVI A, 0xF
+    STAX B
+    LXI B, 0x2F1A
+    MVI A, 0x31
+    STAX B
+    LXI B, 0x2F1B
+    MVI A, 0
+    STAX B
+    LXI B, 0x2F1C
+    MVI A, 0
+    STAX B
+    LXI B, 0x2F1D
+    MVI A, 0x30
+    STAX B
+    LXI B, 0x2F1E
     MVI A, 0x75
+    STAX B
+        ; PROCESS VI
+    LXI B, 0x3110
+    MVI A, 1
+    STAX B
+    LXI B, 0x3119
+    MVI A, 0xF
+    STAX B
+    LXI B, 0x311A
+    MVI A, 0x33
+    STAX B
+    LXI B, 0x311B
+    MVI A, 0
+    STAX B
+    LXI B, 0x311C
+    MVI A, 0
+    STAX B
+    LXI B, 0x311D
+    MVI A, 0xF4
+    STAX B
+    LXI B, 0x311E
+    MVI A, 0x7E
+    STAX B
+        ; PROCESS VII
+    LXI B, 0x3310
+    MVI A, 1
+    STAX B
+    LXI B, 0x3319
+    MVI A, 0xF
+    STAX B
+    LXI B, 0x331A
+    MVI A, 0x35
+    STAX B
+    LXI B, 0x331B
+    MVI A, 0
+    STAX B
+    LXI B, 0x331C
+    MVI A, 0
+    STAX B
+    LXI B, 0x331D
+    MVI A, 0xB8
+    STAX B
+    LXI B, 0x331E
+    MVI A, 0x88
+    STAX B
+        ; PROCESS VIII
+    LXI B, 0x3510
+    MVI A, 1
+    STAX B
+    LXI B, 0x3519
+    MVI A, 0xF
+    STAX B
+    LXI B, 0x351A
+    MVI A, 0x37
+    STAX B
+    LXI B, 0x351B
+    MVI A, 0
+    STAX B
+    LXI B, 0x351C
+    MVI A, 0
+    STAX B
+    LXI B, 0x351D
+    MVI A, 0x7C
+    STAX B
+    LXI B, 0x351E
+    MVI A, 0x92
+    STAX B
+        ; PROCESS IX
+    LXI B, 0x3710
+    MVI A, 1
+    STAX B
+    LXI B, 0x3719
+    MVI A, 0xF
+    STAX B
+    LXI B, 0x371A
+    MVI A, 0x39
+    STAX B
+    LXI B, 0x371B
+    MVI A, 0
+    STAX B
+    LXI B, 0x371C
+    MVI A, 0
+    STAX B
+    LXI B, 0x371D
+    MVI A, 0x40
+    STAX B
+    LXI B, 0x371E
+    MVI A, 0x9C
     STAX B
     ; PROCESS I
 	LXI B, 03E8H	; starting address of where the file name is stored : 1010. address
@@ -131,15 +270,45 @@ begin:
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS II
-	LXI B, 03F7H	; starting address of where the file name is stored : 1015.address
-	LXI H, 61A8H	; starting address of where the file is stored : 25000.address
+	LXI B, 03F5H	; starting address of where the file name is stored : 1015.address
+	LXI H, 57E4H	; starting address of where the file is stored : 25000.address
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS III
-	LXI B, 0407H	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
-	LXI H, 7530H	; dosyanin nereden itibaren RAM'e yazilacaginin baslangic adresi : 30000.adres
+	LXI B, 0405H	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
+	LXI H, 61A8H	; dosyanin nereden itibaren RAM'e yazilacaginin baslangic adresi : 30000.adres
 	MVI A, LOAD_EXEC
 	call GTU_OS
+    ; PROCESS IV
+	LXI B, 040EH	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
+	LXI H, 6B6CH	; dosyanin nereden itibaren RAM'e yazilacaginin baslangic adresi : 35000.adres
+	MVI A, LOAD_EXEC
+	call GTU_OS
+    ; PROCESS V
+	LXI B, 041EH	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
+	LXI H, 7530H	; dosyanin nereden itibaren RAM'e yazilacaginin baslangic adresi : 35000.adres
+	MVI A, LOAD_EXEC
+	call GTU_OS
+    ; PROCESS VI
+    LXI B, 042EH
+    LXI H, 0x7EF4   ; 32500d
+    MVI A, LOAD_EXEC
+    call GTU_OS
+    ; PROCESS VII
+    LXI B, 043EH
+    LXI H, 0x88B8   ; 35000d
+    MVI A, LOAD_EXEC
+    call GTU_OS
+    ; PROCESS VIII
+    LXI B, 044EH
+    LXI H, 0x927C   ; 37500d
+    MVI A, LOAD_EXEC
+    call GTU_OS
+    ; PROCESS IX
+    LXI B, 045EH
+    LXI H, 0x9C40   ; 40000d
+    MVI A, LOAD_EXEC
+    call GTU_OS
     ; START KERNEL
     MVI B, 0            ; counter variable. needs to be loaded before calling scheduler subroutine
     jmp scheduler
@@ -334,6 +503,8 @@ std_exit:
     POP D       ; base registers are in D & E
 
     EI
+    ;MVI A, 10
+    ;CALL GTU_OS
     PCHL        ; D & E and H & L are in their own place
 
 

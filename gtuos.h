@@ -20,6 +20,7 @@ class GTUOS{
 		uint64_t call_read_str(const CPU8080 & cpu);
         uint64_t load_exec(CPU8080 & cpu);
         uint64_t process_exit(CPU8080 & cpu);
+        uint64_t set_quantum(CPU8080 & cpu);
 
 	private:
 		ofstream oFile;
@@ -42,7 +43,7 @@ class GTUOS{
 		syscall READ_STR = syscall(8, 10); // 10 cycles per character
         syscall LOAD_EXEC = syscall(5, 100);
         syscall PROCESS_EXIT = syscall(9, 80);
-
+        syscall SET_QUANTUM = syscall(6, 7);
 };
 
 #endif
