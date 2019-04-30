@@ -12,7 +12,7 @@ class GTUOS{
 	public:
 		GTUOS();
 		~GTUOS();
-		uint64_t handleCall(CPU8080 & cpu);
+		uint64_t handleCall(CPU8080 & cpu, unsigned int seed_val);
 		uint64_t call_print_b(const CPU8080 & cpu);
 		uint64_t call_print_mem(const CPU8080 & cpu);
 		uint64_t call_print_str(const CPU8080 & cpu);
@@ -22,7 +22,7 @@ class GTUOS{
         uint64_t load_exec(CPU8080 & cpu);
         uint64_t process_exit(CPU8080 & cpu);
         uint64_t set_quantum(CPU8080 & cpu);
-        uint64_t rand_int(CPU8080 & cpu);
+        uint64_t rand_int(CPU8080 & cpu, unsigned int seed_val);
 
 	private:
 		ofstream oFile;
@@ -35,7 +35,7 @@ class GTUOS{
 					}
 			
 					int number;
-					uint64_t cycle;
+                    uint64_t cycle;
 		};
 		syscall PRINT_B = syscall(4, 10);
 		syscall PRINT_MEM = syscall(3, 10);
@@ -48,5 +48,6 @@ class GTUOS{
         syscall SET_QUANTUM = syscall(6, 7);
         syscall RAND_INT = syscall(12, 60);
 };
+
 
 #endif

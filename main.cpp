@@ -2,7 +2,7 @@
 #include "8080emuCPP.h"
 #include "gtuos.h"
 #include "memory.h"
-
+#include <ctime>
 
 
 int main (int argc, char**argv)
@@ -12,6 +12,9 @@ int main (int argc, char**argv)
 		exit(1); 
 	}
 	int DEBUG = atoi(argv[2]);
+    srand(time(NULL));
+    unsigned int seed_val = rand();
+
 
 
 	Memory mem(100000);
@@ -35,9 +38,10 @@ int main (int argc, char**argv)
         }
 
 		if(theCPU.isSystemCall()) {
-			theOS.handleCall(theCPU);
+			theOS.handleCall(theCPU, seed_val);
 		}
-            
+
+        ++seed_val;         
 		//printf("cur mem : %d\n", theCPU.memory->physicalAt(0xC350));
 		//printf("%d	%d	%d  %d  %d\n", theCPU.memory->physicalAt(0x2710), theCPU.memory->physicalAt(0x2910), theCPU.memory->physicalAt(0x2B10), theCPU.memory->physicalAt(0x2D10), theCPU.memory->physicalAt(0x2F10));
 	}	while (!theCPU.isHalted());

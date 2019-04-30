@@ -70,7 +70,7 @@ uint64_t GTUOS::process_exit(CPU8080 & cpu) {
 
 
 // Handles system calls and return # of cycles it takes.
-uint64_t GTUOS::handleCall(CPU8080 & cpu){
+uint64_t GTUOS::handleCall(CPU8080 & cpu, unsigned int seed_val){
 	uint8_t content_A = cpu.state->a; // So as to understand which system call to be executed, register A is checked. System call number is assigned to register A.
 	uint64_t cycle = 0; // # of cycles during any of the system calls below is assigned to this variable so that it can be returned.
 
@@ -93,15 +93,15 @@ uint64_t GTUOS::handleCall(CPU8080 & cpu){
     else if (content_A == SET_QUANTUM.number)
         cycle = set_quantum(cpu);
     else if (content_A == RAND_INT.number)
-        cycle = rand_int(cpu);
+        cycle = rand_int(cpu, seed_val);
 	
 	return cycle;
 }
 
 
 
-uint64_t GTUOS::rand_int(CPU8080 & cpu) {
-    srand(time(NULL));
+uint64_t GTUOS::rand_int(CPU8080 & cpu, unsigned int seed_val) {
+    srand(seed_val);
     uint8_t rand_num = rand() % 256;
     cpu.state->b = rand_num;
     return this->RAND_INT.cycle;
