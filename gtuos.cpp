@@ -49,7 +49,7 @@ uint64_t GTUOS::process_exit(CPU8080 & cpu) {
     //printf("\n\n\n\n\n\n\n");
     uint16_t proc_cur = ((Memory *)(cpu.memory))->getBaseRegister();
     uint16_t proc_start = 20000;
-    uint16_t scheduler_addr = 0x0686;
+    uint16_t scheduler_addr = 0x04DF; // 0x0686
     uint16_t table_start, table_cur;
     table_start = table_cur = 0x2710;
     //printf("\n%x : %d | %x : %d | %x : %d | %x : %d\n", 0x2710, cpu.memory->physicalAt(0x2710), 0x2910, cpu.memory->physicalAt(0x2910), 0x2B10, cpu.memory->physicalAt(0x2B10), 0x2D10, cpu.memory->physicalAt(0x2D10));
@@ -92,8 +92,19 @@ uint64_t GTUOS::handleCall(CPU8080 & cpu){
     	cycle = process_exit(cpu);
     else if (content_A == SET_QUANTUM.number)
         cycle = set_quantum(cpu);
+    else if (content_A == RAND_INT.number)
+        cycle = rand_int(cpu);
 	
 	return cycle;
+}
+
+
+
+uint64_t GTUOS::rand_int(CPU8080 & cpu) {
+    srand(time(NULL));
+    uint8_t rand_num = rand() % 256;
+    cpu.state->b = rand_num;
+    return this->RAND_INT.cycle;
 }
 
 

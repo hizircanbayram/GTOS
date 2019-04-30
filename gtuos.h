@@ -4,6 +4,7 @@
 #include "8080emuCPP.h"
 #include <fstream>
 #include <ostream>
+#include <ctime>
 
 using namespace std;
 
@@ -21,6 +22,7 @@ class GTUOS{
         uint64_t load_exec(CPU8080 & cpu);
         uint64_t process_exit(CPU8080 & cpu);
         uint64_t set_quantum(CPU8080 & cpu);
+        uint64_t rand_int(CPU8080 & cpu);
 
 	private:
 		ofstream oFile;
@@ -44,6 +46,7 @@ class GTUOS{
         syscall LOAD_EXEC = syscall(5, 100);
         syscall PROCESS_EXIT = syscall(9, 80);
         syscall SET_QUANTUM = syscall(6, 7);
+        syscall RAND_INT = syscall(12, 60);
 };
 
 #endif
