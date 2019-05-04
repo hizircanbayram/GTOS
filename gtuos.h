@@ -4,7 +4,6 @@
 #include "8080emuCPP.h"
 #include <fstream>
 #include <ostream>
-#include <ctime>
 
 using namespace std;
 
@@ -12,7 +11,7 @@ class GTUOS{
 	public:
 		GTUOS();
 		~GTUOS();
-		uint64_t handleCall(CPU8080 & cpu, unsigned int seed_val);
+		uint64_t handleCall(CPU8080 & cpu);
 		uint64_t call_print_b(const CPU8080 & cpu);
 		uint64_t call_print_mem(const CPU8080 & cpu);
 		uint64_t call_print_str(const CPU8080 & cpu);
@@ -22,8 +21,9 @@ class GTUOS{
         uint64_t load_exec(CPU8080 & cpu);
         uint64_t process_exit(CPU8080 & cpu);
         uint64_t set_quantum(CPU8080 & cpu);
-        uint64_t rand_int(CPU8080 & cpu, unsigned int seed_val);
-
+		uint64_t rand_int(CPU8080 & cpu);
+		uint64_t wait( CPU8080& cpu);
+		uint64_t signal(CPU8080 & cpu);
 	private:
 		ofstream oFile;
 		ifstream inFile;
@@ -35,7 +35,7 @@ class GTUOS{
 					}
 			
 					int number;
-                    uint64_t cycle;
+					uint64_t cycle;
 		};
 		syscall PRINT_B = syscall(4, 10);
 		syscall PRINT_MEM = syscall(3, 10);
@@ -47,7 +47,8 @@ class GTUOS{
         syscall PROCESS_EXIT = syscall(9, 80);
         syscall SET_QUANTUM = syscall(6, 7);
         syscall RAND_INT = syscall(12, 60);
+        syscall WAIT = syscall(13, 200);
+        syscall SIGNAL = syscall(14, 200);
 };
-
 
 #endif

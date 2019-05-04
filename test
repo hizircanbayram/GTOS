@@ -1,0 +1,2800 @@
+Producer
+
+WAIT
+mutex: 1 full: 0 empty: 49
+ semp_addr: 2002 semo_val: 49
+
+
+
+
+WAIT
+mutex: 0 full: 0 empty: 49
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 0 empty: 49
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 1 empty: 49
+ semp_addr: 2001 semp_val: 1
+
+
+
+
+WAIT
+mutex: 1 full: 1 empty: 48
+ semp_addr: 2002 semo_val: 48
+
+
+
+
+WAIT
+mutex: 0 full: 1 empty: 48
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 1 empty: 48
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 2 empty: 48
+ semp_addr: 2001 semp_val: 2
+
+
+
+
+WAIT
+mutex: 1 full: 2 empty: 47
+ semp_addr: 2002 semo_val: 47
+
+
+
+
+WAIT
+mutex: 0 full: 2 empty: 47
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 2 empty: 47
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 3 empty: 47
+ semp_addr: 2001 semp_val: 3
+
+
+
+
+WAIT
+mutex: 1 full: 3 empty: 46
+ semp_addr: 2002 semo_val: 46
+
+
+
+
+WAIT
+mutex: 0 full: 3 empty: 46
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 3 empty: 46
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 4 empty: 46
+ semp_addr: 2001 semp_val: 4
+
+
+
+
+WAIT
+mutex: 1 full: 4 empty: 45
+ semp_addr: 2002 semo_val: 45
+
+
+
+
+WAIT
+mutex: 0 full: 4 empty: 45
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 4 empty: 45
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 5 empty: 45
+ semp_addr: 2001 semp_val: 5
+
+
+
+
+WAIT
+mutex: 1 full: 5 empty: 44
+ semp_addr: 2002 semo_val: 44
+
+
+
+
+WAIT
+mutex: 0 full: 5 empty: 44
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 5 empty: 44
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 6 empty: 44
+ semp_addr: 2001 semp_val: 6
+
+
+
+
+WAIT
+mutex: 1 full: 6 empty: 43
+ semp_addr: 2002 semo_val: 43
+
+
+
+
+WAIT
+mutex: 0 full: 6 empty: 43
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 6 empty: 43
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 7 empty: 43
+ semp_addr: 2001 semp_val: 7
+
+
+
+
+WAIT
+mutex: 1 full: 7 empty: 42
+ semp_addr: 2002 semo_val: 42
+
+
+
+
+WAIT
+mutex: 0 full: 7 empty: 42
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 7 empty: 42
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 8 empty: 42
+ semp_addr: 2001 semp_val: 8
+
+
+
+
+WAIT
+mutex: 1 full: 8 empty: 41
+ semp_addr: 2002 semo_val: 41
+
+
+
+
+WAIT
+mutex: 0 full: 8 empty: 41
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 8 empty: 41
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 9 empty: 41
+ semp_addr: 2001 semp_val: 9
+
+
+
+
+WAIT
+mutex: 1 full: 9 empty: 40
+ semp_addr: 2002 semo_val: 40
+
+
+
+
+WAIT
+mutex: 0 full: 9 empty: 40
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 9 empty: 40
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 10 empty: 40
+ semp_addr: 2001 semp_val: 10
+
+
+
+
+WAIT
+mutex: 1 full: 10 empty: 39
+ semp_addr: 2002 semo_val: 39
+
+
+
+
+WAIT
+mutex: 0 full: 10 empty: 39
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 10 empty: 39
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 11 empty: 39
+ semp_addr: 2001 semp_val: 11
+
+
+
+
+WAIT
+mutex: 1 full: 11 empty: 38
+ semp_addr: 2002 semo_val: 38
+
+
+
+
+WAIT
+mutex: 0 full: 11 empty: 38
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 11 empty: 38
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 12 empty: 38
+ semp_addr: 2001 semp_val: 12
+
+
+
+
+WAIT
+mutex: 1 full: 12 empty: 37
+ semp_addr: 2002 semo_val: 37
+
+
+
+
+WAIT
+mutex: 0 full: 12 empty: 37
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 12 empty: 37
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 13 empty: 37
+ semp_addr: 2001 semp_val: 13
+
+
+
+
+WAIT
+mutex: 1 full: 13 empty: 36
+ semp_addr: 2002 semo_val: 36
+
+
+
+
+WAIT
+mutex: 0 full: 13 empty: 36
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 13 empty: 36
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 14 empty: 36
+ semp_addr: 2001 semp_val: 14
+
+
+
+
+WAIT
+mutex: 1 full: 14 empty: 35
+ semp_addr: 2002 semo_val: 35
+
+
+
+
+WAIT
+mutex: 0 full: 14 empty: 35
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 14 empty: 35
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 15 empty: 35
+ semp_addr: 2001 semp_val: 15
+
+
+
+
+WAIT
+mutex: 1 full: 15 empty: 34
+ semp_addr: 2002 semo_val: 34
+
+
+
+
+WAIT
+mutex: 0 full: 15 empty: 34
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 15 empty: 34
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 16 empty: 34
+ semp_addr: 2001 semp_val: 16
+
+
+
+
+WAIT
+mutex: 1 full: 16 empty: 33
+ semp_addr: 2002 semo_val: 33
+
+
+
+
+WAIT
+mutex: 0 full: 16 empty: 33
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 16 empty: 33
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 17 empty: 33
+ semp_addr: 2001 semp_val: 17
+
+
+
+
+WAIT
+mutex: 1 full: 17 empty: 32
+ semp_addr: 2002 semo_val: 32
+
+
+
+
+WAIT
+mutex: 0 full: 17 empty: 32
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 17 empty: 32
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 18 empty: 32
+ semp_addr: 2001 semp_val: 18
+
+
+
+
+WAIT
+mutex: 1 full: 18 empty: 31
+ semp_addr: 2002 semo_val: 31
+
+
+
+
+WAIT
+mutex: 0 full: 18 empty: 31
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 18 empty: 31
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 19 empty: 31
+ semp_addr: 2001 semp_val: 19
+
+
+
+
+WAIT
+mutex: 1 full: 19 empty: 30
+ semp_addr: 2002 semo_val: 30
+
+
+
+
+WAIT
+mutex: 0 full: 19 empty: 30
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 19 empty: 30
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 20 empty: 30
+ semp_addr: 2001 semp_val: 20
+
+
+
+
+WAIT
+mutex: 1 full: 20 empty: 29
+ semp_addr: 2002 semo_val: 29
+
+
+
+
+WAIT
+mutex: 0 full: 20 empty: 29
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 20 empty: 29
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 21 empty: 29
+ semp_addr: 2001 semp_val: 21
+
+
+
+
+WAIT
+mutex: 1 full: 21 empty: 28
+ semp_addr: 2002 semo_val: 28
+
+
+
+
+WAIT
+mutex: 0 full: 21 empty: 28
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 21 empty: 28
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 22 empty: 28
+ semp_addr: 2001 semp_val: 22
+
+
+
+
+WAIT
+mutex: 1 full: 22 empty: 27
+ semp_addr: 2002 semo_val: 27
+
+
+
+
+WAIT
+mutex: 0 full: 22 empty: 27
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 22 empty: 27
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 23 empty: 27
+ semp_addr: 2001 semp_val: 23
+
+
+
+
+WAIT
+mutex: 1 full: 23 empty: 26
+ semp_addr: 2002 semo_val: 26
+
+
+
+
+WAIT
+mutex: 0 full: 23 empty: 26
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 23 empty: 26
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 24 empty: 26
+ semp_addr: 2001 semp_val: 24
+
+
+
+
+WAIT
+mutex: 1 full: 24 empty: 25
+ semp_addr: 2002 semo_val: 25
+
+
+
+
+WAIT
+mutex: 0 full: 24 empty: 25
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 24 empty: 25
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 25 empty: 25
+ semp_addr: 2001 semp_val: 25
+
+
+
+
+WAIT
+mutex: 1 full: 25 empty: 24
+ semp_addr: 2002 semo_val: 24
+
+
+
+
+WAIT
+mutex: 0 full: 25 empty: 24
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 25 empty: 24
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 26 empty: 24
+ semp_addr: 2001 semp_val: 26
+
+
+
+
+WAIT
+mutex: 1 full: 26 empty: 23
+ semp_addr: 2002 semo_val: 23
+
+
+
+
+WAIT
+mutex: 0 full: 26 empty: 23
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 26 empty: 23
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 27 empty: 23
+ semp_addr: 2001 semp_val: 27
+
+
+
+
+WAIT
+mutex: 1 full: 27 empty: 22
+ semp_addr: 2002 semo_val: 22
+
+
+
+
+WAIT
+mutex: 0 full: 27 empty: 22
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 27 empty: 22
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 28 empty: 22
+ semp_addr: 2001 semp_val: 28
+
+
+
+
+WAIT
+mutex: 1 full: 28 empty: 21
+ semp_addr: 2002 semo_val: 21
+
+
+
+
+WAIT
+mutex: 0 full: 28 empty: 21
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 28 empty: 21
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 29 empty: 21
+ semp_addr: 2001 semp_val: 29
+
+
+
+
+WAIT
+mutex: 1 full: 29 empty: 20
+ semp_addr: 2002 semo_val: 20
+
+
+
+
+WAIT
+mutex: 0 full: 29 empty: 20
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 29 empty: 20
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 30 empty: 20
+ semp_addr: 2001 semp_val: 30
+
+
+
+
+WAIT
+mutex: 1 full: 30 empty: 19
+ semp_addr: 2002 semo_val: 19
+
+
+
+
+WAIT
+mutex: 0 full: 30 empty: 19
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 30 empty: 19
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 31 empty: 19
+ semp_addr: 2001 semp_val: 31
+
+
+
+
+WAIT
+mutex: 1 full: 31 empty: 18
+ semp_addr: 2002 semo_val: 18
+
+
+
+
+WAIT
+mutex: 0 full: 31 empty: 18
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 31 empty: 18
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 32 empty: 18
+ semp_addr: 2001 semp_val: 32
+
+
+
+
+WAIT
+mutex: 1 full: 32 empty: 17
+ semp_addr: 2002 semo_val: 17
+
+
+
+
+WAIT
+mutex: 0 full: 32 empty: 17
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 32 empty: 17
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 33 empty: 17
+ semp_addr: 2001 semp_val: 33
+
+
+
+
+WAIT
+mutex: 1 full: 33 empty: 16
+ semp_addr: 2002 semo_val: 16
+
+
+
+
+WAIT
+mutex: 0 full: 33 empty: 16
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 33 empty: 16
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 34 empty: 16
+ semp_addr: 2001 semp_val: 34
+
+
+
+
+WAIT
+mutex: 1 full: 34 empty: 15
+ semp_addr: 2002 semo_val: 15
+
+
+
+
+WAIT
+mutex: 0 full: 34 empty: 15
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 34 empty: 15
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 35 empty: 15
+ semp_addr: 2001 semp_val: 35
+
+
+
+
+WAIT
+mutex: 1 full: 35 empty: 14
+ semp_addr: 2002 semo_val: 14
+
+
+
+
+WAIT
+mutex: 0 full: 35 empty: 14
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 35 empty: 14
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 36 empty: 14
+ semp_addr: 2001 semp_val: 36
+
+
+
+
+WAIT
+mutex: 1 full: 36 empty: 13
+ semp_addr: 2002 semo_val: 13
+
+
+
+
+WAIT
+mutex: 0 full: 36 empty: 13
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 36 empty: 13
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 37 empty: 13
+ semp_addr: 2001 semp_val: 37
+
+
+
+
+WAIT
+mutex: 1 full: 37 empty: 12
+ semp_addr: 2002 semo_val: 12
+
+
+
+
+WAIT
+mutex: 0 full: 37 empty: 12
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 37 empty: 12
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 38 empty: 12
+ semp_addr: 2001 semp_val: 38
+
+
+
+
+WAIT
+mutex: 1 full: 38 empty: 11
+ semp_addr: 2002 semo_val: 11
+
+
+
+
+WAIT
+mutex: 0 full: 38 empty: 11
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 38 empty: 11
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 39 empty: 11
+ semp_addr: 2001 semp_val: 39
+
+
+
+
+WAIT
+mutex: 1 full: 39 empty: 10
+ semp_addr: 2002 semo_val: 10
+
+
+
+
+WAIT
+mutex: 0 full: 39 empty: 10
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 39 empty: 10
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 40 empty: 10
+ semp_addr: 2001 semp_val: 40
+
+
+
+
+WAIT
+mutex: 1 full: 40 empty: 9
+ semp_addr: 2002 semo_val: 9
+
+
+
+
+WAIT
+mutex: 0 full: 40 empty: 9
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 40 empty: 9
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 41 empty: 9
+ semp_addr: 2001 semp_val: 41
+
+
+
+
+WAIT
+mutex: 1 full: 41 empty: 8
+ semp_addr: 2002 semo_val: 8
+
+
+
+
+WAIT
+mutex: 0 full: 41 empty: 8
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 41 empty: 8
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 42 empty: 8
+ semp_addr: 2001 semp_val: 42
+
+
+
+
+WAIT
+mutex: 1 full: 42 empty: 7
+ semp_addr: 2002 semo_val: 7
+
+
+
+
+WAIT
+mutex: 0 full: 42 empty: 7
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 42 empty: 7
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 43 empty: 7
+ semp_addr: 2001 semp_val: 43
+
+
+
+
+WAIT
+mutex: 1 full: 43 empty: 6
+ semp_addr: 2002 semo_val: 6
+
+
+
+
+WAIT
+mutex: 0 full: 43 empty: 6
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 43 empty: 6
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 44 empty: 6
+ semp_addr: 2001 semp_val: 44
+
+
+
+
+WAIT
+mutex: 1 full: 44 empty: 5
+ semp_addr: 2002 semo_val: 5
+
+
+
+
+WAIT
+mutex: 0 full: 44 empty: 5
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 44 empty: 5
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 45 empty: 5
+ semp_addr: 2001 semp_val: 45
+
+
+
+
+WAIT
+mutex: 1 full: 45 empty: 4
+ semp_addr: 2002 semo_val: 4
+
+
+
+
+WAIT
+mutex: 0 full: 45 empty: 4
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 45 empty: 4
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 46 empty: 4
+ semp_addr: 2001 semp_val: 46
+
+
+
+
+WAIT
+mutex: 1 full: 46 empty: 3
+ semp_addr: 2002 semo_val: 3
+
+
+
+
+WAIT
+mutex: 0 full: 46 empty: 3
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 46 empty: 3
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 47 empty: 3
+ semp_addr: 2001 semp_val: 47
+
+
+
+
+WAIT
+mutex: 1 full: 47 empty: 2
+ semp_addr: 2002 semo_val: 2
+
+
+
+
+WAIT
+mutex: 0 full: 47 empty: 2
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 47 empty: 2
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 48 empty: 2
+ semp_addr: 2001 semp_val: 48
+
+
+
+
+WAIT
+mutex: 1 full: 48 empty: 1
+ semp_addr: 2002 semo_val: 1
+
+
+
+
+WAIT
+mutex: 0 full: 48 empty: 1
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 48 empty: 1
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 49 empty: 1
+ semp_addr: 2001 semp_val: 49
+
+
+
+
+WAIT
+mutex: 1 full: 49 empty: 0
+ semp_addr: 2002 semo_val: 0
+
+
+
+
+WAIT
+mutex: 0 full: 49 empty: 0
+ semp_addr: 2000 semo_val: 0
+
+
+
+
+SIGNAL
+mutex: 1 full: 49 empty: 0
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 50 empty: 0
+ semp_addr: 2001 semp_val: 50
+
+
+Receiver
+
+WAIT
+mutex: 1 full: 49 empty: 0
+ semp_addr: 2001 semo_val: 49
+
+
+
+
+WAIT
+mutex: 0 full: 49 empty: 0
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 49 empty: 0
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 49 empty: 1
+ semp_addr: 2002 semp_val: 1
+
+
+
+
+WAIT
+mutex: 1 full: 48 empty: 1
+ semp_addr: 2001 semo_val: 48
+
+
+
+
+WAIT
+mutex: 0 full: 48 empty: 1
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 48 empty: 1
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 48 empty: 2
+ semp_addr: 2002 semp_val: 2
+
+
+
+
+WAIT
+mutex: 1 full: 47 empty: 2
+ semp_addr: 2001 semo_val: 47
+
+
+
+
+WAIT
+mutex: 0 full: 47 empty: 2
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 47 empty: 2
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 47 empty: 3
+ semp_addr: 2002 semp_val: 3
+
+
+
+
+WAIT
+mutex: 1 full: 46 empty: 3
+ semp_addr: 2001 semo_val: 46
+
+
+
+
+WAIT
+mutex: 0 full: 46 empty: 3
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 46 empty: 3
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 46 empty: 4
+ semp_addr: 2002 semp_val: 4
+
+
+
+
+WAIT
+mutex: 1 full: 45 empty: 4
+ semp_addr: 2001 semo_val: 45
+
+
+
+
+WAIT
+mutex: 0 full: 45 empty: 4
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 45 empty: 4
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 45 empty: 5
+ semp_addr: 2002 semp_val: 5
+
+
+
+
+WAIT
+mutex: 1 full: 44 empty: 5
+ semp_addr: 2001 semo_val: 44
+
+
+
+
+WAIT
+mutex: 0 full: 44 empty: 5
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 44 empty: 5
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 44 empty: 6
+ semp_addr: 2002 semp_val: 6
+
+
+
+
+WAIT
+mutex: 1 full: 43 empty: 6
+ semp_addr: 2001 semo_val: 43
+
+
+
+
+WAIT
+mutex: 0 full: 43 empty: 6
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 43 empty: 6
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 43 empty: 7
+ semp_addr: 2002 semp_val: 7
+
+
+
+
+WAIT
+mutex: 1 full: 42 empty: 7
+ semp_addr: 2001 semo_val: 42
+
+
+
+
+WAIT
+mutex: 0 full: 42 empty: 7
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 42 empty: 7
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 42 empty: 8
+ semp_addr: 2002 semp_val: 8
+
+
+
+
+WAIT
+mutex: 1 full: 41 empty: 8
+ semp_addr: 2001 semo_val: 41
+
+
+
+
+WAIT
+mutex: 0 full: 41 empty: 8
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 41 empty: 8
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 41 empty: 9
+ semp_addr: 2002 semp_val: 9
+
+
+
+
+WAIT
+mutex: 1 full: 40 empty: 9
+ semp_addr: 2001 semo_val: 40
+
+
+
+
+WAIT
+mutex: 0 full: 40 empty: 9
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 40 empty: 9
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 40 empty: 10
+ semp_addr: 2002 semp_val: 10
+
+
+
+
+WAIT
+mutex: 1 full: 39 empty: 10
+ semp_addr: 2001 semo_val: 39
+
+
+
+
+WAIT
+mutex: 0 full: 39 empty: 10
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 39 empty: 10
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 39 empty: 11
+ semp_addr: 2002 semp_val: 11
+
+
+
+
+WAIT
+mutex: 1 full: 38 empty: 11
+ semp_addr: 2001 semo_val: 38
+
+
+
+
+WAIT
+mutex: 0 full: 38 empty: 11
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 38 empty: 11
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 38 empty: 12
+ semp_addr: 2002 semp_val: 12
+
+
+
+
+WAIT
+mutex: 1 full: 37 empty: 12
+ semp_addr: 2001 semo_val: 37
+
+
+
+
+WAIT
+mutex: 0 full: 37 empty: 12
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 37 empty: 12
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 37 empty: 13
+ semp_addr: 2002 semp_val: 13
+
+
+
+
+WAIT
+mutex: 1 full: 36 empty: 13
+ semp_addr: 2001 semo_val: 36
+
+
+
+
+WAIT
+mutex: 0 full: 36 empty: 13
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 36 empty: 13
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 36 empty: 14
+ semp_addr: 2002 semp_val: 14
+
+
+
+
+WAIT
+mutex: 1 full: 35 empty: 14
+ semp_addr: 2001 semo_val: 35
+
+
+
+
+WAIT
+mutex: 0 full: 35 empty: 14
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 35 empty: 14
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 35 empty: 15
+ semp_addr: 2002 semp_val: 15
+
+
+
+
+WAIT
+mutex: 1 full: 34 empty: 15
+ semp_addr: 2001 semo_val: 34
+
+
+
+
+WAIT
+mutex: 0 full: 34 empty: 15
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 34 empty: 15
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 34 empty: 16
+ semp_addr: 2002 semp_val: 16
+
+
+
+
+WAIT
+mutex: 1 full: 33 empty: 16
+ semp_addr: 2001 semo_val: 33
+
+
+
+
+WAIT
+mutex: 0 full: 33 empty: 16
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 33 empty: 16
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 33 empty: 17
+ semp_addr: 2002 semp_val: 17
+
+
+
+
+WAIT
+mutex: 1 full: 32 empty: 17
+ semp_addr: 2001 semo_val: 32
+
+
+
+
+WAIT
+mutex: 0 full: 32 empty: 17
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 32 empty: 17
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 32 empty: 18
+ semp_addr: 2002 semp_val: 18
+
+
+
+
+WAIT
+mutex: 1 full: 31 empty: 18
+ semp_addr: 2001 semo_val: 31
+
+
+
+
+WAIT
+mutex: 0 full: 31 empty: 18
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 31 empty: 18
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 31 empty: 19
+ semp_addr: 2002 semp_val: 19
+
+
+
+
+WAIT
+mutex: 1 full: 30 empty: 19
+ semp_addr: 2001 semo_val: 30
+
+
+
+
+WAIT
+mutex: 0 full: 30 empty: 19
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 30 empty: 19
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 30 empty: 20
+ semp_addr: 2002 semp_val: 20
+
+
+
+
+WAIT
+mutex: 1 full: 29 empty: 20
+ semp_addr: 2001 semo_val: 29
+
+
+
+
+WAIT
+mutex: 0 full: 29 empty: 20
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 29 empty: 20
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 29 empty: 21
+ semp_addr: 2002 semp_val: 21
+
+
+
+
+WAIT
+mutex: 1 full: 28 empty: 21
+ semp_addr: 2001 semo_val: 28
+
+
+
+
+WAIT
+mutex: 0 full: 28 empty: 21
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 28 empty: 21
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 28 empty: 22
+ semp_addr: 2002 semp_val: 22
+
+
+
+
+WAIT
+mutex: 1 full: 27 empty: 22
+ semp_addr: 2001 semo_val: 27
+
+
+
+
+WAIT
+mutex: 0 full: 27 empty: 22
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 27 empty: 22
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 27 empty: 23
+ semp_addr: 2002 semp_val: 23
+
+
+
+
+WAIT
+mutex: 1 full: 26 empty: 23
+ semp_addr: 2001 semo_val: 26
+
+
+
+
+WAIT
+mutex: 0 full: 26 empty: 23
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 26 empty: 23
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 26 empty: 24
+ semp_addr: 2002 semp_val: 24
+
+
+
+
+WAIT
+mutex: 1 full: 25 empty: 24
+ semp_addr: 2001 semo_val: 25
+
+
+
+
+WAIT
+mutex: 0 full: 25 empty: 24
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 25 empty: 24
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 25 empty: 25
+ semp_addr: 2002 semp_val: 25
+
+
+
+
+WAIT
+mutex: 1 full: 24 empty: 25
+ semp_addr: 2001 semo_val: 24
+
+
+
+
+WAIT
+mutex: 0 full: 24 empty: 25
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 24 empty: 25
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 24 empty: 26
+ semp_addr: 2002 semp_val: 26
+
+
+
+
+WAIT
+mutex: 1 full: 23 empty: 26
+ semp_addr: 2001 semo_val: 23
+
+
+
+
+WAIT
+mutex: 0 full: 23 empty: 26
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 23 empty: 26
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 23 empty: 27
+ semp_addr: 2002 semp_val: 27
+
+
+
+
+WAIT
+mutex: 1 full: 22 empty: 27
+ semp_addr: 2001 semo_val: 22
+
+
+
+
+WAIT
+mutex: 0 full: 22 empty: 27
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 22 empty: 27
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 22 empty: 28
+ semp_addr: 2002 semp_val: 28
+
+
+
+
+WAIT
+mutex: 1 full: 21 empty: 28
+ semp_addr: 2001 semo_val: 21
+
+
+
+
+WAIT
+mutex: 0 full: 21 empty: 28
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 21 empty: 28
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 21 empty: 29
+ semp_addr: 2002 semp_val: 29
+
+
+
+
+WAIT
+mutex: 1 full: 20 empty: 29
+ semp_addr: 2001 semo_val: 20
+
+
+
+
+WAIT
+mutex: 0 full: 20 empty: 29
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 20 empty: 29
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 20 empty: 30
+ semp_addr: 2002 semp_val: 30
+
+
+
+
+WAIT
+mutex: 1 full: 19 empty: 30
+ semp_addr: 2001 semo_val: 19
+
+
+
+
+WAIT
+mutex: 0 full: 19 empty: 30
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 19 empty: 30
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 19 empty: 31
+ semp_addr: 2002 semp_val: 31
+
+
+
+
+WAIT
+mutex: 1 full: 18 empty: 31
+ semp_addr: 2001 semo_val: 18
+
+
+
+
+WAIT
+mutex: 0 full: 18 empty: 31
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 18 empty: 31
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 18 empty: 32
+ semp_addr: 2002 semp_val: 32
+
+
+
+
+WAIT
+mutex: 1 full: 17 empty: 32
+ semp_addr: 2001 semo_val: 17
+
+
+
+
+WAIT
+mutex: 0 full: 17 empty: 32
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 17 empty: 32
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 17 empty: 33
+ semp_addr: 2002 semp_val: 33
+
+
+
+
+WAIT
+mutex: 1 full: 16 empty: 33
+ semp_addr: 2001 semo_val: 16
+
+
+
+
+WAIT
+mutex: 0 full: 16 empty: 33
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 16 empty: 33
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 16 empty: 34
+ semp_addr: 2002 semp_val: 34
+
+
+
+
+WAIT
+mutex: 1 full: 15 empty: 34
+ semp_addr: 2001 semo_val: 15
+
+
+
+
+WAIT
+mutex: 0 full: 15 empty: 34
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 15 empty: 34
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 15 empty: 35
+ semp_addr: 2002 semp_val: 35
+
+
+
+
+WAIT
+mutex: 1 full: 14 empty: 35
+ semp_addr: 2001 semo_val: 14
+
+
+
+
+WAIT
+mutex: 0 full: 14 empty: 35
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 14 empty: 35
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 14 empty: 36
+ semp_addr: 2002 semp_val: 36
+
+
+
+
+WAIT
+mutex: 1 full: 13 empty: 36
+ semp_addr: 2001 semo_val: 13
+
+
+
+
+WAIT
+mutex: 0 full: 13 empty: 36
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 13 empty: 36
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 13 empty: 37
+ semp_addr: 2002 semp_val: 37
+
+
+
+
+WAIT
+mutex: 1 full: 12 empty: 37
+ semp_addr: 2001 semo_val: 12
+
+
+
+
+WAIT
+mutex: 0 full: 12 empty: 37
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 12 empty: 37
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 12 empty: 38
+ semp_addr: 2002 semp_val: 38
+
+
+
+
+WAIT
+mutex: 1 full: 11 empty: 38
+ semp_addr: 2001 semo_val: 11
+
+
+
+
+WAIT
+mutex: 0 full: 11 empty: 38
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 11 empty: 38
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 11 empty: 39
+ semp_addr: 2002 semp_val: 39
+
+
+
+
+WAIT
+mutex: 1 full: 10 empty: 39
+ semp_addr: 2001 semo_val: 10
+
+
+
+
+WAIT
+mutex: 0 full: 10 empty: 39
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 10 empty: 39
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 10 empty: 40
+ semp_addr: 2002 semp_val: 40
+
+
+
+
+WAIT
+mutex: 1 full: 9 empty: 40
+ semp_addr: 2001 semo_val: 9
+
+
+
+
+WAIT
+mutex: 0 full: 9 empty: 40
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 9 empty: 40
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 9 empty: 41
+ semp_addr: 2002 semp_val: 41
+
+
+
+
+WAIT
+mutex: 1 full: 8 empty: 41
+ semp_addr: 2001 semo_val: 8
+
+
+
+
+WAIT
+mutex: 0 full: 8 empty: 41
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 8 empty: 41
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 8 empty: 42
+ semp_addr: 2002 semp_val: 42
+
+
+
+
+WAIT
+mutex: 1 full: 7 empty: 42
+ semp_addr: 2001 semo_val: 7
+
+
+
+
+WAIT
+mutex: 0 full: 7 empty: 42
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 7 empty: 42
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 7 empty: 43
+ semp_addr: 2002 semp_val: 43
+
+
+
+
+WAIT
+mutex: 1 full: 6 empty: 43
+ semp_addr: 2001 semo_val: 6
+
+
+
+
+WAIT
+mutex: 0 full: 6 empty: 43
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 6 empty: 43
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 6 empty: 44
+ semp_addr: 2002 semp_val: 44
+
+
+
+
+WAIT
+mutex: 1 full: 5 empty: 44
+ semp_addr: 2001 semo_val: 5
+
+
+
+
+WAIT
+mutex: 0 full: 5 empty: 44
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 5 empty: 44
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 5 empty: 45
+ semp_addr: 2002 semp_val: 45
+
+
+
+
+WAIT
+mutex: 1 full: 4 empty: 45
+ semp_addr: 2001 semo_val: 4
+
+
+
+
+WAIT
+mutex: 0 full: 4 empty: 45
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 4 empty: 45
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 4 empty: 46
+ semp_addr: 2002 semp_val: 46
+
+
+
+
+WAIT
+mutex: 1 full: 3 empty: 46
+ semp_addr: 2001 semo_val: 3
+
+
+
+
+WAIT
+mutex: 0 full: 3 empty: 46
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 3 empty: 46
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 3 empty: 47
+ semp_addr: 2002 semp_val: 47
+
+
+
+
+WAIT
+mutex: 1 full: 2 empty: 47
+ semp_addr: 2001 semo_val: 2
+
+
+
+
+WAIT
+mutex: 0 full: 2 empty: 47
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 2 empty: 47
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 2 empty: 48
+ semp_addr: 2002 semp_val: 48
+
+
+
+
+WAIT
+mutex: 1 full: 1 empty: 48
+ semp_addr: 2001 semo_val: 1
+
+
+
+
+WAIT
+mutex: 0 full: 1 empty: 48
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 1 empty: 48
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 1 empty: 49
+ semp_addr: 2002 semp_val: 49
+
+
+
+
+WAIT
+mutex: 1 full: 0 empty: 49
+ semp_addr: 2001 semo_val: 0
+
+
+
+
+WAIT
+mutex: 0 full: 0 empty: 49
+ semp_addr: 2000 semo_val: 0
+
+
+0 
+
+SIGNAL
+mutex: 1 full: 0 empty: 49
+ semp_addr: 2000 semp_val: 1
+
+
+
+
+SIGNAL
+mutex: 1 full: 0 empty: 50
+ semp_addr: 2002 semp_val: 50
+
+

@@ -1,4 +1,4 @@
-.binfile Sum.com
+.binfile sender.com
 	; OS call list
 PRINT_B		equ 4
 PRINT_MEM	equ 3
@@ -9,6 +9,10 @@ READ_STR	equ 8
 LOAD_EXEC   equ 5
 PROCESS_EXIT equ 9
 RAND_INT equ 12
+WAIT equ 13
+SIGNAL equ 14
+N equ 50
+
 
 	org 000H
 	jmp begin
@@ -32,9 +36,9 @@ GTU_OS: DI
 
 
 
-prompt:	dw 'Random generator, welcome',00H 	; prompt message if the given parameter is odd number
+prompt:	dw 'Producer',00H 	; prompt message if the given parameter is odd number
 
-
+; mutex, full, empty
 
 ; main sub routine.
 begin:
@@ -43,16 +47,38 @@ begin:
     CALL GTU_OS
 
     MVI D, 0
-    MVI E, 10
+    MVI E, N
 loop:
     MOV A, E
     CMP D
     JZ exit
 
+    ; produce item
     MVI A, RAND_INT
     CALL GTU_OS
-
-    MVI A, PRINT_B
+    ; down empty
+    MVI C, 2
+    MVI A, WAIT
+    CALL GTU_OS
+    ; down mutex
+    MVI C, 0
+    MVI A, WAIT
+    CALL GTU_OS
+    ; insert item
+    MOV A, B
+    LXI B, 0xD6D8
+    STAX B
+    ;MVI A, 11
+    ;CALL GTU_OS
+    ; MVI A, PRINT_B
+    ; CALL GTU_OS
+    ; up mutex
+    MVI C, 0
+    MVI A, SIGNAL
+    CALL GTU_OS
+    ; up full 
+    MVI C, 1
+    MVI A, SIGNAL
     CALL GTU_OS
 
     INR D

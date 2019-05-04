@@ -1,5 +1,11 @@
-.binfile Sum.com
-
+        ; 8080 assembler code
+        .hexfile sum.hex
+        .binfile Sum.com
+        ; try "hex" for downloading in hex format
+        .download bin  
+        .objcopy gobjcopy
+        .postbuild echo "OK!"
+        ;.nodump
 
 	; OS call list
 PRINT_B		equ 4

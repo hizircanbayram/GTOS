@@ -49,7 +49,7 @@ uint64_t GTUOS::process_exit(CPU8080 & cpu) {
     //printf("\n\n\n\n\n\n\n");
     uint16_t proc_cur = ((Memory *)(cpu.memory))->getBaseRegister();
     uint16_t proc_start = 20000;
-    uint16_t scheduler_addr = 0x04B0;
+    uint16_t scheduler_addr = 0x04B3;
     uint16_t table_start, table_cur;
     table_start = table_cur = 0x2710;
     //printf("\n%x : %d | %x : %d | %x : %d | %x : %d\n", 0x2710, cpu.memory->physicalAt(0x2710), 0x2910, cpu.memory->physicalAt(0x2910), 0x2B10, cpu.memory->physicalAt(0x2B10), 0x2D10, cpu.memory->physicalAt(0x2D10));
@@ -70,10 +70,10 @@ uint64_t GTUOS::process_exit(CPU8080 & cpu) {
 
 
 // Handles system calls and return # of cycles it takes.
-uint64_t GTUOS::handleCall(CPU8080 & cpu){
+uint64_t GTUOS::handleCall(CPU8080 & cpu, unsigned int seed_val){
 	uint8_t content_A = cpu.state->a; // So as to understand which system call to be executed, register A is checked. System call number is assigned to register A.
 	uint64_t cycle = 0; // # of cycles during any of the system calls below is assigned to this variable so that it can be returned.
-    int c = 0;
+
 	if (content_A == PRINT_B.number)
 		cycle = call_print_b(cpu);
 	else if (content_A == PRINT_MEM.number)
@@ -93,31 +93,20 @@ uint64_t GTUOS::handleCall(CPU8080 & cpu){
     else if (content_A == SET_QUANTUM.number)
         cycle = set_quantum(cpu);
     else if (content_A == RAND_INT.number)
-        cycle = rand_int(cpu);
+        cycle = rand_int(cpu, seed_val);
     else if (content_A == WAIT.number)
         cycle = wait(cpu);
     else if (content_A == SIGNAL.number)
         cycle = signal(cpu);
-    else if (content_A == 11) {
-        for(int i = 0 ; i < 0x10000 ; ++i){
-        // for(int i = 53248 ; i < 53280 ; ++i){
-		    if(i % 32 == 0){
-	            printf("\n");
-	            printf("%d - ",c++);
-	    	}
-	        printf("%3d ",cpu.memory->at(i));
-        }
-        printf("\n");    
-    }      
-
+	
 	return cycle;
 }
 
 
 
 // Generates a random number in the range of 0-255. Puts is into register B.
-uint64_t GTUOS::rand_int(CPU8080 & cpu) {
-    srand(time(NULL));
+uint64_t GTUOS::rand_int(CPU8080 & cpu, unsigned int seed_val) {
+    srand(seed_val);
     uint8_t rand_num = rand() % 256;
     cpu.state->b = rand_num;
     return this->RAND_INT.cycle;
@@ -125,66 +114,67 @@ uint64_t GTUOS::rand_int(CPU8080 & cpu) {
 
 
 
-uint64_t GTUOS::wait( CPU8080& cpu){
-	int semp_val;
-	int semp_addr;
-	
-	semp_addr = (int) cpu.state->c + 2000; // Semaphore no is kept in register C
-	semp_val = (int) cpu.memory->physicalAt(semp_addr);
-	if (!semp_val) { // needs to be blocked without busy waiting : context switching
-		cpu.onInterrupt();		
-		((Memory *)cpu.memory)->setBaseRegister(0);		
-	    cpu.state->pc = 0x29;
-	}
-	else { // simply decreasing the value of semaphore
-		--semp_val;
-		cpu.memory->physicalAt(semp_addr) = semp_val;
-	}	
-		
-	cout<<endl<<endl<<"WAIT"<<endl;
-	cout<<"mutex: "<< (int)cpu.memory->physicalAt(2000)<< " full: " <<(int) cpu.memory->physicalAt(2001) << " empty: "<< (int) cpu.memory->physicalAt(2002) << endl;
-	cout<<" semp_addr: "<<semp_addr<<" semo_val: "<<semp_val<<endl<<endl<<endl;
+// Waits on the condition variable. First address of a mail box is for mutex, the next two ones are for semaphores.(mutex, full, empty)
+uint64_t GTUOS::wait(CPU8080 & cpu) {
 
-	return this->WAIT.cycle;
+    uint16_t semp_addr = 2000 + (int) cpu.state->c; // Semaphore no is kept in register C
+    //printf("semp_addr : %d\n", semp_addr);
+    uint8_t semp_val = (int) (cpu.memory->physicalAt(semp_addr));
+    //printf("semp_val : %d\n", semp_val);
+    if (!semp_val) { // needs to be blocked without busy waiting : context switching
+        //cpu.dispatchScheduler();
+        cpu.onInterrupt();         
+        ((Memory *) cpu.memory)->setBaseRegister(0);
+        cpu.state->pc = 0x28; // ????? 0x29 da olabilir
+    }
+    else { // simply decreasing the value of semaphore
+        --semp_val;
+        //printf("val : %d is assigned to address : %d\n", semp_val, semp_addr);
+        cpu.memory->physicalAt(semp_addr) = semp_val;
+    }
+    
+    this->WAIT.cycle;
 }
 
 
 
 uint64_t GTUOS::signal(CPU8080 & cpu) {
     uint16_t semp_addr = 2000 + cpu.state->c; // Semaphore no is kept in register C
+    //printf("semp_addr : %d\n", semp_addr);
     int semp_val = (int) cpu.memory->physicalAt(semp_addr);
-
+    //printf("semp_val : %d\n", semp_val);
+    //cout<<endl<<endl<<"SIGNAL"<<endl;
+    //cout<<"mutex: "<<(int)cpu.memory->physicalAt(2000)<<" empty: "<<(int)cpu.memory->physicalAt(2001)<<" full: "<<(int)cpu.memory->physicalAt(2002)<<endl;
+    //cout<<" semp_addr: "<<semp_addr<<" semo_val: "<<semp_val<<endl<<endl<<endl;
     if (cpu.state->c == 0) { // if the semaphore is mutex
         if (!semp_val) { 
             ++semp_val;
+            //printf("MUTEX | val : %d is assigned to address : %d\n", semp_val, semp_addr);
             cpu.memory->physicalAt(semp_addr) = semp_val;
         }
         else { 
             // do nothing
-        }
-        
+        }      
     }
     else if (cpu.state->c == 2 || cpu.state->c == 1) { // if the semaphore is not mutex
         if (semp_val < 50) {
             ++semp_val;
+            //printf("SEMAPHORE | val : %d is assigned to address : %d\n", semp_val, semp_addr);
             cpu.memory->physicalAt(semp_addr) = semp_val;
         }
         else { // needs to be blocked without busy waiting : context switching
-	     cpu.onInterrupt();		
-	     ((Memory *)cpu.memory)->setBaseRegister(0);		
-	     cpu.state->pc = 0x29;
+            cpu.onInterrupt();         
+            ((Memory *)cpu.memory)->setBaseRegister(0);         
+         
+         
+         cpu.state->pc = 0x28; // ????? 0x29 da olabilir
+         //printf("SEMAPHORE | context switch must be occurred\n");
         }
     }
     else { // error
         fprintf(stderr, "Wrong semaphore index\n");
     }
-
-    cout << endl << endl << "SIGNAL" << endl;
-    cout << "mutex: " << (int) cpu.memory->physicalAt(2000) << " full: " << (int) cpu.memory->physicalAt(2001) << " empty: " << (int) cpu.memory->physicalAt(2002) << endl;
-    cout << " semp_addr: " << semp_addr << " semp_val: " << semp_val << endl << endl << endl;
-
-    return this->SIGNAL.cycle;
-}
+} 
 
 
 

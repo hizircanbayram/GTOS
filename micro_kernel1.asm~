@@ -13,7 +13,7 @@ WAIT equ 13
 SIGNAL equ 14
 
 
-NUM equ 2
+NUM equ 3
 RUN equ 1
 DONE equ 0
 
@@ -50,8 +50,9 @@ GTU_OS:	DI
 	org 03E8H
 
 
-proc1: dw  'sender.com',00H		
-proc2: dw  'receiver.com',00H			
+proc1: dw  'Collatz.com',00H		
+proc2: dw  'ShowPrimes.com',00H		
+proc3: dw  'Sum.com',00H		
 
 
 begin:	
@@ -117,6 +118,28 @@ begin:
     LXI B, 0x291E
     MVI A, 0x57
     STAX B
+        ; PROCESS III
+    LXI B, 0x2B10
+    MVI A, 1
+    STAX B
+    LXI B, 0x2B19
+    MVI A, 0xF
+    STAX B
+    LXI B, 0x2B1A
+    MVI A, 0x2D
+    STAX B
+    LXI B, 0x2B1B
+    MVI A, 0
+    STAX B
+    LXI B, 0x2B1C
+    MVI A, 0
+    STAX B
+    LXI B, 0x2B1D
+    MVI A, 0xA8
+    STAX B
+    LXI B, 0x2B1E
+    MVI A, 0x61
+    STAX B
 
     ; PROCESS I
 	LXI B, 03E8H	; starting address of where the file name is stored : 1010. address
@@ -124,8 +147,13 @@ begin:
 	MVI A, LOAD_EXEC
 	call GTU_OS
     ; PROCESS II
-	LXI B, 03F4H	; starting address of where the file name is stored : 1015.address
+	LXI B, 03F5H	; starting address of where the file name is stored : 1015.address
 	LXI H, 57E4H	; starting address of where the file is stored : 25000.address
+	MVI A, LOAD_EXEC
+	call GTU_OS
+    ; PROCESS III
+	LXI B, 0405H	; dosyanin isminin saklandigi bellek blogunun baslangic adresi : 1031.adres
+	LXI H, 61A8H	; dosyanin nereden itibaren RAM'e yazilacaginin baslangic adresi : 30000.adres
 	MVI A, LOAD_EXEC
 	call GTU_OS
 
