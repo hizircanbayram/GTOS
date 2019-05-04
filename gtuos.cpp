@@ -70,7 +70,7 @@ uint64_t GTUOS::process_exit(CPU8080 & cpu) {
 
 
 // Handles system calls and return # of cycles it takes.
-uint64_t GTUOS::handleCall(CPU8080 & cpu){
+uint64_t GTUOS::handleCall(CPU8080 & cpu, int seed_val){
 	uint8_t content_A = cpu.state->a; // So as to understand which system call to be executed, register A is checked. System call number is assigned to register A.
 	uint64_t cycle = 0; // # of cycles during any of the system calls below is assigned to this variable so that it can be returned.
     int c = 0;
@@ -93,7 +93,7 @@ uint64_t GTUOS::handleCall(CPU8080 & cpu){
     else if (content_A == SET_QUANTUM.number)
         cycle = set_quantum(cpu);
     else if (content_A == RAND_INT.number)
-        cycle = rand_int(cpu);
+        cycle = rand_int(cpu, seed_val);
     else if (content_A == WAIT.number)
         cycle = wait(cpu);
     else if (content_A == SIGNAL.number)
@@ -105,7 +105,7 @@ uint64_t GTUOS::handleCall(CPU8080 & cpu){
 	            printf("\n");
 	            printf("%d - ",c++);
 	    	}
-	        printf("%3d ",cpu.memory->at(i));
+	        printf("%3d ",cpu.memory->physicalAt(i));
         }
         printf("\n");    
     }      
@@ -116,10 +116,11 @@ uint64_t GTUOS::handleCall(CPU8080 & cpu){
 
 
 // Generates a random number in the range of 0-255. Puts is into register B.
-uint64_t GTUOS::rand_int(CPU8080 & cpu) {
-    srand(time(NULL));
+uint64_t GTUOS::rand_int(CPU8080 & cpu, int seed_val) {
+    srand(seed_val);
     uint8_t rand_num = rand() % 256;
     cpu.state->b = rand_num;
+    printf("rand : %d\n", cpu.state->b);
     return this->RAND_INT.cycle;
 }
 
@@ -128,7 +129,7 @@ uint64_t GTUOS::rand_int(CPU8080 & cpu) {
 uint64_t GTUOS::wait( CPU8080& cpu){
 	int semp_val;
 	int semp_addr;
-	
+    //printf("wait addr : %x\n", ((Memory *) cpu.memory)->getBaseRegister());
 	semp_addr = (int) cpu.state->c + 2000; // Semaphore no is kept in register C
 	semp_val = (int) cpu.memory->physicalAt(semp_addr);
 	if (!semp_val) { // needs to be blocked without busy waiting : context switching
@@ -141,10 +142,9 @@ uint64_t GTUOS::wait( CPU8080& cpu){
 		cpu.memory->physicalAt(semp_addr) = semp_val;
 	}	
 		
-	cout<<endl<<endl<<"WAIT"<<endl;
-	cout<<"mutex: "<< (int)cpu.memory->physicalAt(2000)<< " full: " <<(int) cpu.memory->physicalAt(2001) << " empty: "<< (int) cpu.memory->physicalAt(2002) << endl;
-	cout<<" semp_addr: "<<semp_addr<<" semo_val: "<<semp_val<<endl<<endl<<endl;
-
+	//cout<<endl<<endl<<"WAIT"<<endl;
+	//cout<<"mutex: "<< (int)cpu.memory->physicalAt(2000)<< " full: " <<(int) cpu.memory->physicalAt(2001) << " empty: "<< (int) cpu.memory->physicalAt(2002) << endl;
+	//cout<<" semp_addr: "<<semp_addr<<" semo_val: "<<semp_val<<endl<<endl<<endl;
 	return this->WAIT.cycle;
 }
 
@@ -179,10 +179,11 @@ uint64_t GTUOS::signal(CPU8080 & cpu) {
         fprintf(stderr, "Wrong semaphore index\n");
     }
 
-    cout << endl << endl << "SIGNAL" << endl;
-    cout << "mutex: " << (int) cpu.memory->physicalAt(2000) << " full: " << (int) cpu.memory->physicalAt(2001) << " empty: " << (int) cpu.memory->physicalAt(2002) << endl;
-    cout << " semp_addr: " << semp_addr << " semp_val: " << semp_val << endl << endl << endl;
+    //cout << endl << endl << "SIGNAL" << endl;
+    //cout << "mutex: " << (int) cpu.memory->physicalAt(2000) << " full: " << (int) cpu.memory->physicalAt(2001) << " empty: " << (int) cpu.memory->physicalAt(2002) << endl;
+    //cout << " semp_addr: " << semp_addr << " semp_val: " << semp_val << endl << endl << endl;
 
+    //printf("val : %d\n", cpu.memory->at(0x7530));
     return this->SIGNAL.cycle;
 }
 
@@ -199,9 +200,12 @@ uint64_t GTUOS::call_print_b(const CPU8080 & cpu) {
 
 // Calls PRINT_MEM system call. Prints the of contents of memory pointed by register  B and register C as decimal.
 uint64_t GTUOS::call_print_mem(const CPU8080 & cpu) {
-	uint16_t address = (((uint16_t)cpu.state->b) << 8) | cpu.state->c;
+	//uint16_t address = (((uint16_t)cpu.state->b) << 8) | cpu.state->c;
 	//oFile << (int)cpu.memory->at(address) << endl;	
-    cout << (int)cpu.memory->at(address) << endl;
+    uint16_t addr = 2003 + cpu.state->b;
+    //uint16_t proc_cur = ((Memory *)(cpu.memory))->getBaseRegister();
+    //cout << "val : " << "(" << (int) cpu.memory->physicalAt(addr) << ")" << endl;
+    cout << (int) cpu.memory->physicalAt(addr) << endl;
 	return this->PRINT_MEM.cycle;
 }
 
@@ -241,16 +245,13 @@ uint64_t GTUOS::call_read_b(const CPU8080 & cpu) {
 
 // Calls READ_MEM system call. Reads an integer from the keyboard and puts it at the memory location pointed by register B and register C.
 uint64_t GTUOS::call_read_mem(const CPU8080 & cpu) {
-	uint8_t content;
-	cout << "Enter the number that is written to the memory address pointed by register B and register C : ";
-	//inFile >> content;
-    cin >> content;
-	if ((content < 0) || (content > 255)) {
-		cout << "The number isn't in the valid range. 0 is assigned." << endl;
-		content = 0;
-	}
-	uint16_t address = (((uint16_t)cpu.state->b) << 8) | cpu.state->c;
-	cpu.memory->at(address) = content;
+	uint8_t addr_ind, addr_val;
+    uint16_t addr_cur, addr_default = 2003;
+    
+    addr_val = cpu.state->b; // keeps the value
+    addr_ind = cpu.state->c; // keeps the indice of memory in which a value will be written
+    addr_cur = addr_default + addr_ind; 
+	cpu.memory->physicalAt(addr_cur) = addr_val;
 	return this->READ_MEM.cycle;
 }
 

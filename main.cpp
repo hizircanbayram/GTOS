@@ -1,4 +1,6 @@
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 #include "8080emuCPP.h"
 #include "gtuos.h"
 #include "memory.h"
@@ -12,6 +14,7 @@ int main (int argc, char**argv)
     exit(1); 
   }
   int DEBUG = atoi(argv[2]);
+  int seed_val = 0;
   Memory mem(0x10000);
   
   CPU8080 *theCPU = new CPU8080(&mem);
@@ -24,8 +27,9 @@ int main (int argc, char**argv)
       getchar();
     
     theCPU->Emulate8080p(DEBUG);
-      if(theCPU->isSystemCall())
-	theOS.handleCall(*theCPU);
+    if(theCPU->isSystemCall())
+      theOS.handleCall(*theCPU, seed_val);
+    ++seed_val;
   }while(!theCPU->isHalted());
   free(theCPU);
   return 0;
